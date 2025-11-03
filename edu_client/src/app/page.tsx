@@ -1,12 +1,19 @@
 'use client';
-import React, { useState } from 'react';
-import { BookOpen, Video, Calendar, Code, Shield, TrendingUp, Users, Wifi, Globe, MessageSquare, Check, X, Menu, Mail, Phone } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Video, Calendar, Code, Shield, TrendingUp, Users, Wifi, Globe, MessageSquare, Check, X, Menu, Mail, Phone, Award } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function LMSLandingPage() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/dashboard');
+  }
 
   const features = [
     { icon: Video, title: "One-on-One Sessions", desc: "Personal attention with live video tutoring" },
@@ -20,38 +27,38 @@ export default function LMSLandingPage() {
   ];
 
   const pricingPlans = [
-    { 
+    {
       id: 'starter',
-      name: "Starter", 
-      price: "$5", 
+      name: "Starter",
+      price: "$5",
       period: "one-time",
       features: ["1 month access", "All core features", "Community access", "Email support"],
       cta: "Get Started",
       highlight: false
     },
-    { 
+    {
       id: 'monthly',
-      name: "Monthly", 
-      price: "$25", 
+      name: "Monthly",
+      price: "$25",
       period: "per month",
       features: ["Full platform access", "Unlimited sessions", "Priority support", "All curriculums", "Progress reports"],
       cta: "Start Free Trial",
       highlight: true
     },
-    { 
+    {
       id: 'annual',
-      name: "Annual", 
-      price: "$250", 
+      name: "Annual",
+      price: "$250",
       period: "per year",
       savings: "Save $50",
       features: ["Everything in Monthly", "2 months free", "Premium support", "Early feature access", "Custom schedules"],
       cta: "Start Free Trial",
       highlight: false
     },
-    { 
+    {
       id: 'lifetime',
-      name: "Lifetime", 
-      price: "$1,000", 
+      name: "Lifetime",
+      price: "$1,000",
       period: "one-time",
       features: ["Lifetime access", "All future updates", "VIP support", "Exclusive content", "Custom integrations"],
       cta: "Start Free Trial",
@@ -62,7 +69,7 @@ export default function LMSLandingPage() {
   const Modal = ({ show, onClose, title, children }) => {
     if (!show) return null;
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={onClose}>
+      <div className="fixed inset-0 bg-green bg-opacity-20 dark:bg-opacity-20 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={onClose}>
         <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 relative animate-fadeIn shadow-xl" onClick={(e) => e.stopPropagation()}>
           <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
             <X size={24} />
@@ -117,9 +124,9 @@ export default function LMSLandingPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <BookOpen className="text-green-600 dark:text-green-400 mr-2" size={32} />
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">EduHome</span>
+              <span className="text-2xl font-bold text-gray-800 dark:text-white">MyPath</span>
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-6">
               <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">Features</a>
@@ -149,48 +156,45 @@ export default function LMSLandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <div className="animate-slideUp">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Education Without Borders
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            Professional remote teaching platform designed for Africa and beyond. Learn from home with personalized instruction, even on low-bandwidth connections.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => setShowRegisterModal(true)} className="bg-green-600 dark:bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition hover-lift">
-              Start Free Trial - No Credit Card
-            </button>
-            <button onClick={() => setShowContactModal(true)} className="bg-white dark:bg-gray-800 text-green-600 dark:text-green-400 border-2 border-green-600 dark:border-green-400 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-50 dark:hover:bg-gray-700 transition hover-lift">
-              Contact Us
-            </button>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="animate-slideUp text-center lg:text-left">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              Adaptive Education Without Borders
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Professional remote teaching platform designed for Africa and beyond. Learn from home with personalized instruction, even on low-bandwidth connections.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button onClick={() => setShowRegisterModal(true)} className="bg-green-600 dark:bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition hover-lift">
+                Start Free Trial - No Credit Card
+              </button>
+              <button onClick={() => setShowContactModal(true)} className="bg-white dark:bg-gray-800 text-green-600 dark:text-green-400 border-2 border-green-600 dark:border-green-400 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-50 dark:hover:bg-gray-700 transition hover-lift">
+                Contact Us
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Hero Illustration */}
-        <div className="mt-16 animate-float">
-          <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-8 max-w-4xl mx-auto">
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
-                <Video size={48} className="text-green-600" />
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
-                <Code size={48} className="text-green-600" />
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center">
-                <BookOpen size={48} className="text-green-600" />
-              </div>
+          {/* Right Image */}
+          <div className="animate-float">
+            <div className="relative">
+              <img
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
+                alt="Students learning online"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-green-600/20 to-transparent rounded-2xl"></div>
             </div>
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section id="features" className="bg-white dark:bg-gray-800 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">Powerful Features for Remote Learning</h2>
           <p className="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">Everything you need to teach and learn effectively, anywhere in the world</p>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => (
               <div key={idx} className="p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:shadow-lg dark:hover:shadow-gray-700/50 transition hover-lift">
@@ -204,45 +208,83 @@ export default function LMSLandingPage() {
       </section>
 
       {/* Curriculum Section */}
-      <section className="py-20 bg-gradient-to-r from-green-50 to-gray-50">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900">Your Curriculum, Your Choice</h2>
-              <p className="text-lg text-gray-600 mb-6">
-                We support multiple international curricula to meet your educational needs wherever you are:
-              </p>
-              <ul className="space-y-3">
-                {["CBC (Competency Based Curriculum)", "ACE (Accelerated Christian Education)", "GCSE (General Certificate of Secondary Education)", "Cambridge International", "American Curriculum", "Custom Homeschool Programs"].map((curr, idx) => (
-                  <li key={idx} className="flex items-center">
-                    <Check className="text-green-600 mr-3 flex-shrink-0" size={20} />
-                    <span className="text-gray-700">{curr}</span>
-                  </li>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Your Curriculum, Your Choice</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              We support multiple international curricula to meet your educational needs wherever you are
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            {/* Curriculum List */}
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+              <div className="space-y-4">
+                {[
+                  { name: "CBC", full: "Competency Based Curriculum", icon: "🇰🇪" },
+                  { name: "ACE", full: "Accelerated Christian Education", icon: "📖" },
+                  { name: "GCSE", full: "General Certificate of Secondary Education", icon: "🇬🇧" },
+                  { name: "Cambridge International", full: "Globally Recognized", icon: "🎓" },
+                  { name: "American Curriculum", full: "US Standards", icon: "🇺🇸" },
+                  { name: "Custom Homeschool", full: "Personalized Learning", icon: "🏠" }
+                ].map((curr, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center p-4 rounded-lg bg-transparent border border-green-100 dark:border-green-800 hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    <span className="text-3xl mr-4">{curr.icon}</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <Check className="text-green-600 dark:text-green-400 flex-shrink-0" size={20} />
+                        <span className="font-bold text-gray-900 dark:text-white">{curr.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{curr.full}</span>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-xl">
-              <Globe className="text-green-600 mx-auto mb-4 animate-float" size={80} />
-              <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">Learn from Anywhere</h3>
-              <p className="text-gray-600 text-center">
-                Optimized for low-bandwidth environments. Quality education reaches the remotest parts of Africa and beyond.
-              </p>
+
+            {/* Feature Cards */}
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-green-600 to-green-700 dark:from-green-500 dark:to-green-600 p-8 rounded-2xl shadow-xl text-white">
+                <Globe className="mb-4 animate-float" size={56} />
+                <h3 className="text-2xl font-bold mb-3">Learn from Anywhere</h3>
+                <p className="text-green-50">
+                  Optimized for low-bandwidth environments. Quality education reaches the remotest parts of Africa and beyond.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+                <BookOpen className="text-green-600 dark:text-green-400 mb-4" size={56} />
+                <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Flexible Learning Paths</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Switch between curricula seamlessly or combine multiple approaches to create the perfect educational journey.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+                <Award className="text-green-600 dark:text-green-400 mb-4" size={56} />
+                <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Certified Excellence</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  All our curricula are delivered by qualified educators with proven track records in their respective systems.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">Simple, Transparent Pricing</h2>
           <p className="text-center text-gray-600 dark:text-gray-300 mb-12">All plans include a free trial - no credit card required</p>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingPlans.map((plan, idx) => (
-              <div key={idx} className={`rounded-xl p-6 ${
-                plan.highlight 
-                  ? 'bg-green-600 dark:bg-green-500 text-white shadow-2xl scale-105' 
+              <div key={idx} className={`rounded-xl p-6 ${plan.highlight
+                  ? 'bg-green-600 dark:bg-green-500 text-white shadow-2xl scale-105'
                   : 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white'
                 } hover-lift relative`}>
                 {plan.savings && (
@@ -253,31 +295,28 @@ export default function LMSLandingPage() {
                 <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                 <div className="mb-4">
                   <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className={`text-sm ${
-                    plan.highlight 
-                      ? 'text-green-100' 
+                  <span className={`text-sm ${plan.highlight
+                      ? 'text-green-100'
                       : 'text-gray-500 dark:text-gray-400'
-                  }`}> {plan.period}</span>
+                    }`}> {plan.period}</span>
                 </div>
                 <ul className="space-y-3 mb-6">
                   {plan.features.map((feature, fidx) => (
                     <li key={fidx} className="flex items-start">
-                      <Check className={`mr-2 flex-shrink-0 ${
-                        plan.highlight 
-                          ? 'text-green-200' 
+                      <Check className={`mr-2 flex-shrink-0 ${plan.highlight
+                          ? 'text-green-200'
                           : 'text-green-600 dark:text-green-400'
-                      }`} size={20} />
+                        }`} size={20} />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <button 
+                <button
                   onClick={() => setShowRegisterModal(true)}
-                  className={`w-full py-3 rounded-lg font-semibold transition ${
-                    plan.highlight 
-                      ? 'bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-800' 
+                  className={`w-full py-3 rounded-lg font-semibold transition ${plan.highlight
+                      ? 'bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                       : 'bg-green-600 dark:bg-green-500 text-white hover:bg-green-700 dark:hover:bg-green-600'
-                  }`}
+                    }`}
                 >
                   {plan.cta}
                 </button>
@@ -288,41 +327,45 @@ export default function LMSLandingPage() {
       </section>
 
       {/* About/Mission Section */}
-      <section id="about" className="py-20 bg-gradient-to-br from-gray-900 to-green-900 text-white">
+      <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">Championing Education for All</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-200">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900 dark:text-white">Championing Education for All</h2>
+          <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-600 dark:text-gray-200">
             We believe quality education should reach every corner of the world, especially Africa. Our platform is built with professionalism, monitored for safety, and optimized for accessibility.
           </p>
           <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
-              <Shield className="mx-auto mb-4 text-green-400" size={48} />
-              <h3 className="text-xl font-bold mb-2">Professional & Monitored</h3>
-              <p className="text-gray-200">All sessions are secure, private, and monitored for quality assurance</p>
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+              <Shield className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Professional & Monitored</h3>
+              <p className="text-gray-600 dark:text-gray-200">All sessions are secure, private, and monitored for quality assurance</p>
             </div>
-            <div className="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
-              <Users className="mx-auto mb-4 text-green-400" size={48} />
-              <h3 className="text-xl font-bold mb-2">Community Learning</h3>
-              <p className="text-gray-200">Student walls enable peer collaboration and knowledge sharing</p>
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+              <Users className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Community Learning</h3>
+              <p className="text-gray-600 dark:text-gray-200">Student walls enable peer collaboration and knowledge sharing</p>
             </div>
-            <div className="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur">
-              <Wifi className="mx-auto mb-4 text-green-400" size={48} />
-              <h3 className="text-xl font-bold mb-2">Low-Data Friendly</h3>
-              <p className="text-gray-200">Engineered to work perfectly on mobile devices with limited connectivity</p>
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+              <Wifi className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Low-Data Friendly</h3>
+              <p className="text-gray-600 dark:text-gray-200">Engineered to work perfectly on mobile devices with limited connectivity</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-green-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-gradient-to-br from-green-600 to-green-700 dark:from-green-500 dark:to-green-600 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Transform Your Learning Experience?</h2>
-          <p className="text-xl mb-8 text-green-100">Join thousands of students and teachers already using EduHome</p>
-          <button onClick={() => setShowRegisterModal(true)} className="bg-white text-green-600 px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition hover-lift">
+          <p className="text-xl mb-8 text-green-50">Join thousands of students and teachers already using MyPath</p>
+          <button
+            onClick={() => setShowRegisterModal(true)}
+            className="bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition hover-lift shadow-xl"
+          >
             Start Your Free Trial Today
           </button>
-          <p className="mt-4 text-green-100">No credit card required • Cancel anytime</p>
+          <p className="mt-4 text-green-50">No credit card required • Cancel anytime</p>
         </div>
       </section>
 
@@ -333,7 +376,7 @@ export default function LMSLandingPage() {
             <div>
               <div className="flex items-center mb-4">
                 <BookOpen className="text-green-600 dark:text-green-500 mr-2" size={28} />
-                <span className="text-xl font-bold text-white dark:text-gray-200">EduHome</span>
+                <span className="text-xl font-bold text-white dark:text-gray-200">MyPath</span>
               </div>
               <p className="text-sm">Empowering education across Africa and beyond with professional remote teaching solutions.</p>
             </div>
@@ -360,31 +403,31 @@ export default function LMSLandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 dark:border-gray-900 pt-8 text-center text-sm">
-            <p>&copy; 2024 EduHome. All rights reserved. Built for educators, by educators.</p>
+            <p>&copy; 2024 MyPath. All rights reserved. Built for educators, by educators.</p>
           </div>
         </div>
       </footer>
 
       {/* Login Modal */}
-      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)} title="Login to EduHome">
+      <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)} title="Login to MyPath">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-            <input 
-              type="email" 
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
-              placeholder="your@email.com" 
+            <input
+              type="email"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              placeholder="your@email.com"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
-            <input 
-              type="password" 
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
-              placeholder="••••••••" 
+            <input
+              type="password"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              placeholder="••••••••"
             />
           </div>
-          <button className="w-full bg-green-600 dark:bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition">
+          <button onClick={() => handleLogin()} className="w-full bg-green-600 dark:bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition">
             Login
           </button>
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
@@ -397,19 +440,19 @@ export default function LMSLandingPage() {
       <Modal show={showRegisterModal} onClose={() => setShowRegisterModal(false)} title="Create Your Account">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
             <input type="text" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent" placeholder="John Doe" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
             <input type="email" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent" placeholder="your@email.com" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
             <input type="password" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent" placeholder="••••••••" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">I am a...</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">I am a...</label>
             <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent">
               <option>Student</option>
               <option>Teacher</option>
@@ -440,9 +483,9 @@ export default function LMSLandingPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-            <textarea 
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
-              rows={4} 
+            <textarea
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-600 dark:focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              rows={4}
               placeholder="How can we help you?"
             ></textarea>
           </div>
