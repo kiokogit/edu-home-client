@@ -5,9 +5,9 @@ export default function DashboardLayout({ children }) {
     <div className="flex">
         <main className="flex-1">
         
-      <StudentDashboardNav >
-        {children}
-      </StudentDashboardNav>
+        <StudentDashboardNav >
+            {children}
+        </StudentDashboardNav>
       
       </main>
     </div>

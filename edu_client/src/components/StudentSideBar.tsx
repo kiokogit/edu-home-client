@@ -15,13 +15,8 @@ import {
   Menu,
   LogOut
 } from 'lucide-react';
+import Link from 'next/link';
 
-/**
- * StudentDashboardNav.tsx
- * - Responsive left sidebar + top nav bar for student dashboards
- * - Sidebar shows avatar, profile info, primary navigation
- * - Top bar shows notifications, quick actions, premium banner
- */
 
 export default function StudentDashboardNav({children}: {children: React.ReactNode}) {
   return (
@@ -38,14 +33,14 @@ export default function StudentDashboardNav({children}: {children: React.ReactNo
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-2">
-          <NavItem icon={<Home />} label="Dashboard / Home" />
-          <NavItem icon={<Calendar />} label="Calendar & Schedule" />
-          <NavItem icon={<Video />} label="Live Classes" />
-          <NavItem icon={<BookCheck />} label="My Courses" />
-          <NavItem icon={<ClipboardList />} label="Assessments & Progress" />
-          <NavItem icon={<Star />} label="Learning Paths" />
-          <NavItem icon={<HelpCircle />} label="Help & Support" />
+        <nav className="flex-1 space-y-2 w-full">
+          <NavItem icon={<Home className='h-5 w-5' />} label="Dashboard" />
+          <NavItem icon={<Calendar className='h-5 w-5' />} label="Calendar & Schedule" />
+          <NavItem icon={<Video className='h-5 w-5' />} label="Live Classes" />
+          <NavItem icon={<BookCheck className='h-5 w-5' />} label="My Courses" />
+          <NavItem icon={<ClipboardList className='h-5 w-5' />} label="Assessments" />
+          <NavItem icon={<Star className='h-5 w-5' />} label="Learning Paths" />
+          <NavItem icon={<HelpCircle className='h-5 w-5' />} label="Help & Support" />
         </nav>
 
         {/* Logout */}
@@ -82,7 +77,7 @@ export default function StudentDashboardNav({children}: {children: React.ReactNo
         </div> */}
 
         {/* CONTENT SLOT */}
-        <div className="flex-1 overflow-y-auto p-1">
+        <div className="flex-1 overflow-y-auto p-4 pb-24">
           {children}
         </div>
       </div>
@@ -90,10 +85,10 @@ export default function StudentDashboardNav({children}: {children: React.ReactNo
   );
 }
 
-function NavItem({ icon, label }: { icon: React.ReactNode; label: string }) {
+function NavItem({ icon, label, href='' }: { icon: React.ReactNode; label: string, href?: string }) {
   return (
-    <button className="w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-lg text-sm">
+    <Link href={href} className="w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-lg text-sm">
       {icon} <span>{label}</span>
-    </button>
+    </Link>
   );
 }
