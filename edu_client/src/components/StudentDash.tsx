@@ -1,39 +1,37 @@
 'use client';
 import React, { useState } from 'react';
-import Image from 'next/image';
 import {
   BookOpen,
   Code,
   Cpu,
   Gamepad,
-  User,
-  Wallet,
-  CreditCard,
   Users,
-  Check,
-  Mail,
-  Phone,
   Star,
   ArrowRight,
   Gift,
-  PlusCircle
+  PlusCircle,
+  PenTool,
+  BarChart3,
+  Bot,
+  ShieldCheck,
+  Network,
+  Cloud,
+  Terminal,
+  CheckCircle,
+  Clock,
+  Sparkles
 } from 'lucide-react';
-
-/**
- * WelcomeDashboardContent.tsx
- * - Content-only dashboard welcome component for a freshly registered student.
- * - NOTE: ignore navbars/sidebars/footers (this component is only the content area)
- * - Uses the color system and UI language from the provided page.tsx
- * - Replace image src values with your assets or PNGs as required.
- */
 
 export default function WelcomeDashboardContent() {
   const journeys = [
     {
       id: 'basic-coding',
-      title: 'Basic Coding (by Age)',
+      title: 'Elements of Programming',
       summary: 'Age-tailored fundamentals: logic, Scratch, block-based and text basics',
       icon: Code,
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
+      status: 'new',
+      progress: 0,
       stages: ['Intro & Logic', 'Blocks & Scratch', 'Intro to Python', 'Mini Projects', 'Assessment']
     },
     {
@@ -41,6 +39,9 @@ export default function WelcomeDashboardContent() {
       title: 'Web Development',
       summary: 'HTML → CSS → JavaScript → Frameworks → Deployments',
       icon: BookOpen,
+      image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80',
+      status: 'new',
+      progress: 0,
       stages: ['HTML Fundamentals', 'CSS & Layouts', 'JS & DOM', 'React / Frameworks', 'Deploy & Portfolio']
     },
     {
@@ -48,6 +49,9 @@ export default function WelcomeDashboardContent() {
       title: 'AI & Machine Learning',
       summary: 'Start from data & algorithms, progress to models and inference',
       icon: Cpu,
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80',
+      status: 'new',
+      progress: 0,
       stages: ['Math & Python', 'Data Wrangling', 'ML Basics', 'Deep Learning', 'Projects & Ethics']
     },
     {
@@ -55,34 +59,98 @@ export default function WelcomeDashboardContent() {
       title: 'Gaming & Game Development',
       summary: 'Design, code, and publish games across platforms',
       icon: Gamepad,
+      image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&q=80',
+      status: 'completed',
+      progress: 100,
       stages: ['Game Design', '2D Engines', '3D Basics', 'Scripting & AI', 'Publish & Iterate']
+    },
+    {
+      id: 'ui-ux',
+      title: 'UI/UX & Product Design',
+      summary: 'Visual design, wireframing, prototyping, usability, and product thinking',
+      icon: PenTool,
+      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Design Principles', 'Wireframes', 'Hi-Fi Design', 'Prototyping', 'User Testing & Case Study']
+    },
+    {
+      id: 'data-science',
+      title: 'Data Science & Analytics',
+      summary: 'Collect, analyze, visualize, and interpret data for business decisions',
+      icon: BarChart3,
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Python & Excel', 'Data Cleaning', 'Analytics & BI Tools', 'Dashboards', 'Case Studies']
+    },
+    {
+      id: 'robotics',
+      title: 'Robotics & Automation',
+      summary: 'Hands-on robotics logic, microcontrollers, sensors and real-world automation',
+      icon: Bot,
+      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Circuits & Sensors', 'Arduino / Micro:Bit', 'Movement & Logic', 'Autonomous Behavior', 'Project Build']
+    },
+    {
+      id: 'cyber-security',
+      title: 'Cyber Security & Ethical Hacking',
+      summary: 'Security foundations, network defense, ethical hacking workflows',
+      icon: ShieldCheck,
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Networking Basics', 'OS Security', 'Threat Analysis', 'Ethical Hacking Tools', 'Secure Systems']
+    },
+    {
+      id: 'system-admin',
+      title: 'System Administration & Networking',
+      summary: 'Manage operating systems, networks, infrastructure, and enterprise systems',
+      icon: Network,
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Linux & Windows Admin', 'Networking Essentials', 'User & Access Control', 'Monitoring & Logs', 'Deploy & Maintain']
+    },
+    {
+      id: 'cloud-devops',
+      title: 'Cloud Computing & DevOps',
+      summary: 'Infrastructure automation, containerization, CI/CD & cloud operations',
+      icon: Cloud,
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Linux & Terminal', 'Cloud Providers', 'Containers (Docker)', 'CI/CD Pipelines', 'Deploy & Scale']
+    },
+    {
+      id: 'linux-fundamentals',
+      title: 'Linux Command Line & Scripting',
+      summary: 'Master file systems, permissions, processes + automation with Bash',
+      icon: Terminal,
+      image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&q=80',
+      status: 'new',
+      progress: 0,
+      stages: ['Shell Basics', 'Permissions & Users', 'Processes & Services', 'Shell Scripting', 'Automations']
     }
   ];
 
-  // Pricing constants (from user's brief)
-  const PRICE_PER_COURSE = 10; // USD
-  const PRICE_PER_MODULE = 2; // USD
-  const PRICE_PER_PATH = 20; // USD
-  const SUB_MONTHLY = 25; // USD (from attached file)
-  const SUB_ANNUAL = 250; // USD (from attached file)
+  const PRICE_PER_COURSE = 10;
+  const PRICE_PER_MODULE = 2;
+  const PRICE_PER_PATH = 20;
+  const SUB_MONTHLY = 25;
+  const SUB_ANNUAL = 250;
 
-  // local UI state
   const [selectedJourney, setSelectedJourney] = useState(journeys[0]);
-  const [selectedStageIndex, setSelectedStageIndex] = useState<number | null>(null);
-  const [paymentChoice, setPaymentChoice] = useState<'course' | 'module' | 'path' | 'subscription' | null>(null);
-  const [subscriptionPlan, setSubscriptionPlan] = useState<'monthly' | 'annual' | null>(null);
+  const [selectedStageIndex, setSelectedStageIndex] = useState(null);
+  const [paymentChoice, setPaymentChoice] = useState(null);
+  const [subscriptionPlan, setSubscriptionPlan] = useState(null);
   const [selfPaced, setSelfPaced] = useState(true);
-  const [preferredTeacher, setPreferredTeacher] = useState<string | null>(null);
   const [isMinor, setIsMinor] = useState(false);
   const [guardianContact, setGuardianContact] = useState({ name: '', email: '', phone: '' });
   const [requestSent, setRequestSent] = useState(false);
   const [buyForAnother, setBuyForAnother] = useState({ enabled: false, recipientEmail: '' });
-
-  const teachers = [
-    { id: 't1', name: 'Aisha K.' },
-    { id: 't2', name: 'Daniel M.' },
-    { id: 't3', name: 'Priya R.' }
-  ];
 
   function priceForSelection() {
     if (paymentChoice === 'course') return PRICE_PER_COURSE;
@@ -93,9 +161,7 @@ export default function WelcomeDashboardContent() {
   }
 
   function handleSendGuardianRequest() {
-    // In a real app: call API to create a payment request and send email/SMS.
     setRequestSent(true);
-    // simulate side-effect
     setTimeout(() => {
       alert('Payment request sent to guardian — this is a simulated action in the demo.');
     }, 200);
@@ -113,7 +179,6 @@ export default function WelcomeDashboardContent() {
       return;
     }
 
-    // Normally: open payment modal / redirect to checkout
     if (buyForAnother.enabled && buyForAnother.recipientEmail) {
       alert(`Proceeding to buy for ${buyForAnother.recipientEmail} — Amount: $${amount}`);
     } else {
@@ -121,45 +186,91 @@ export default function WelcomeDashboardContent() {
     }
   }
 
+  const getStatusBadge = (status, progress) => {
+    if (status === 'completed') {
+      return (
+        <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+          <CheckCircle size={14} />
+          Completed
+        </span>
+      );
+    }
+    if (status === 'in-progress') {
+      return (
+        <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+          <Clock size={14} />
+          {progress}% Complete
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
+        <Sparkles size={14} />
+        New
+      </span>
+    );
+  };
+
   return (
-    <main className="max-w-6xl mx-auto">
-      {/* Welcome header */}
-      <section className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg mb-8">
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          <div className="flex-1">
-            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Welcome to MyPath 🎉</h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-4 text-lg">
-              Your learning journey is ready. Pick a path, choose where to start, and decide how you want to learn — self-paced or with a teacher. Everything appears on this dashboard.
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl mb-8 overflow-hidden shadow-2xl">
+        <div className="flex flex-col lg:flex-row items-center gap-8 p-8 md:p-12">
+          <div className="flex-1 text-white">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+              Welcome to MyPath 🎉
+            </h1>
+            <p className="text-lg md:text-xl text-green-50 mb-6 leading-relaxed">
+              Your personalized learning journey starts here. Choose from 11+ professional tracks and start building your future today.
             </p>
 
-            <div className="flex flex-wrap gap-3">
-              <span className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm">Course: ${PRICE_PER_COURSE}</span>
-              <span className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Module: ${PRICE_PER_MODULE}</span>
-              <span className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">Path: ${PRICE_PER_PATH}</span>
-              <span className="inline-flex items-center gap-2 bg-yellow-50 text-yellow-800 px-3 py-1 rounded-full text-sm">Monthly: ${SUB_MONTHLY}</span>
+            <div className="flex flex-wrap gap-3 mb-6">
+              <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                💎 Course: ${PRICE_PER_COURSE}
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                📚 Module: ${PRICE_PER_MODULE}
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                🚀 Full Path: ${PRICE_PER_PATH}
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                ⭐ Monthly: ${SUB_MONTHLY}
+              </div>
             </div>
+
+            <button className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105">
+              Start Your Journey
+            </button>
           </div>
 
-          <div className="w-48 h-48 relative flex-shrink-0">
-            <Image
-              src="https://images.unsplash.com/photo-1584697964154-7f2e1f1d5a6f?w=800&q=80"
-              alt="Welcome illustration"
-              fill
-              className="object-cover rounded-xl shadow-2xl"
+          <div className="w-full lg:w-1/2 flex-shrink-0">
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+              alt="Students learning together"
+              className="w-full h-80 object-cover rounded-2xl shadow-2xl"
             />
-            
           </div>
         </div>
       </section>
 
-      {/* Journey Selector */}
-      <section className="grid lg:grid-cols-3 gap-6 mb-8">
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md">
-            <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Choose a Learning Journey</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Select a path below. Journeys are connected — you can always transition from basics to advanced tracks like AI.</p>
+      <div className="grid lg:grid-cols-3 gap-8 mb-8">
+        {/* Main Content */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Learning Journeys */}
+          <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-xl">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  Choose Your Learning Path
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Select from our curated learning journeys. Each path is designed to take you from beginner to expert.
+                </p>
+              </div>
+            </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-6">
               {journeys.map((j) => {
                 const Icon = j.icon;
                 const active = selectedJourney.id === j.id;
@@ -167,17 +278,69 @@ export default function WelcomeDashboardContent() {
                   <button
                     key={j.id}
                     onClick={() => { setSelectedJourney(j); setSelectedStageIndex(null); }}
-                    className={`text-left p-4 rounded-lg border ${active ? 'border-green-600 bg-green-50 dark:bg-green-900/40' : 'border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800'} hover:shadow-sm transition`}
+                    className={`group relative text-left overflow-hidden rounded-2xl transition-all duration-100 ${
+                      active 
+                        ? 'ring-2 ring-green-500 shadow-2xl scale-[1.02]' 
+                        : 'hover:shadow-xl hover:scale-[1.01]'
+                    }`}
                   >
-                    <div className="flex items-start gap-4">
-                      <Icon size={36} className="text-green-600 dark:text-green-400 flex-shrink-0" />
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-gray-900 dark:text-white">{j.title}</h3>
-                          {active && <span className="text-green-600 text-sm font-medium">Selected</span>}
+                    {/* Image Background */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={j.image} 
+                        alt={j.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      
+                      {/* Icon & Status Badge */}
+                      <div className="absolute top-4 left-4 right-4 flex items-start justify-between">
+                        <div className="bg-white/20 backdrop-blur-md p-3 rounded-xl">
+                          <Icon size={28} className="text-white" />
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{j.summary}</p>
-                        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{j.stages.length} stages • starts from basics</p>
+                        {getStatusBadge(j.status, j.progress)}
+                      </div>
+
+                      {/* Title at bottom */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="font-bold text-xl text-white mb-1 flex items-center gap-2">
+                          {j.title}
+                          {active && <CheckCircle size={20} className="text-green-400" />}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 bg-white dark:bg-gray-800">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        {j.summary}
+                      </p>
+
+                      {/* Progress Bar for in-progress courses */}
+                      {j.status === 'in-progress' && (
+                        <div className="mb-3">
+                          <div className="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>Progress</span>
+                            <span>{j.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all"
+                              style={{ width: `${j.progress}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {j.stages.length} stages • Self-paced
+                        </span>
+                        {active && (
+                          <span className="text-xs font-semibold text-green-600 dark:text-green-400">
+                            Selected ✓
+                          </span>
+                        )}
                       </div>
                     </div>
                   </button>
@@ -186,142 +349,206 @@ export default function WelcomeDashboardContent() {
             </div>
           </div>
 
-          {/* Stages & Start Point */}
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Where would you like to start in <span className="text-green-600">{selectedJourney.title}</span>?</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Pick any stage as your starting point. The platform will adapt the subsequent recommendations.</p>
+          {/* Why MyPath Section */}
+          
+        </div>
+        
 
-            <div className="flex flex-col gap-3">
-              {selectedJourney.stages.map((stage, idx) => (
-                <div key={stage} className={`p-4 rounded-lg border ${selectedStageIndex === idx ? 'border-green-600 bg-green-50' : 'border-gray-100 dark:border-gray-700'}`}>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <strong className="text-gray-900 dark:text-white">{stage}</strong>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">Stage {idx + 1}</span>
-                      </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Short description for {stage}. Covers essentials and hands-on projects.</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Price: <strong>${PRICE_PER_COURSE}</strong> per course • Modules available at ${PRICE_PER_MODULE} each</p>
-                    </div>
+        {/* Sidebar */}
+        <aside className="space-y-6">
+          {/* Learning Mode */}
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-green-100 dark:bg-green-900 p-2 rounded-lg">
+                <Users className="text-green-600 dark:text-green-400" size={20} />
+              </div>
+              <h4 className="font-bold text-lg text-gray-900 dark:text-white">Learning Mode</h4>
+            </div>
 
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => setSelectedStageIndex(idx)} className={`px-4 py-2 rounded-lg font-semibold ${selectedStageIndex === idx ? 'bg-green-600 text-white' : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white'}`}>
-                          Start Here
-                        </button>
-                      </div>
-                      <button onClick={() => { setPaymentChoice('course'); setSelectedStageIndex(idx); }} className="text-sm text-green-600 hover:underline">Buy Course</button>
-                    </div>
-                  </div>
+            <div className="space-y-3">
+              <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                selfPaced ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
+              }`}>
+                <input 
+                  type="radio" 
+                  checked={selfPaced} 
+                  onChange={() => setSelfPaced(true)} 
+                  className="w-5 h-5 text-green-600"
+                />
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">Self-Paced</div>
+                  <div className="text-xs text-gray-500">Learn at your own speed</div>
                 </div>
-              ))}
+              </label>
+
+              <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                !selfPaced ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
+              }`}>
+                <input 
+                  type="radio" 
+                  checked={!selfPaced} 
+                  onChange={() => setSelfPaced(false)} 
+                  className="w-5 h-5 text-green-600"
+                />
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">With Teacher</div>
+                  <div className="text-xs text-gray-500">Live sessions & mentorship</div>
+                </div>
+              </label>
             </div>
           </div>
-        </div>
 
-        {/* Right column: Payment, Teacher, Options */}
-        <aside className="space-y-6">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md">
-            <div className="flex items-center gap-3 mb-3">
-              <Users className="text-green-600" />
-              <h4 className="font-bold text-gray-900 dark:text-white">Learning Mode</h4>
-            </div>
+          {/* Payment Options */}
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-xl">
+            <h5 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Payment Options</h5>
 
-            <div className="flex items-center gap-3 mb-3">
-              <label className="inline-flex items-center gap-2">
-                <input type="checkbox" checked={selfPaced} onChange={() => setSelfPaced(!selfPaced)} className="checkbox" />
-                <span className="text-sm">Self-paced</span>
+            <div className="space-y-3 mb-4">
+              <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                paymentChoice === 'path' ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
+              }`}>
+                <input 
+                  type="radio" 
+                  name="payment" 
+                  checked={paymentChoice === 'path'} 
+                  onChange={() => setPaymentChoice('path')} 
+                  className="w-5 h-5 text-green-600"
+                />
+                <div className="flex-1">
+                  <div className="font-semibold text-gray-900 dark:text-white">Full Learning Path</div>
+                  <div className="text-xs text-gray-500">${PRICE_PER_PATH} • Complete journey</div>
+                </div>
               </label>
-              <label className="inline-flex items-center gap-2 ml-4">
-                <input type="checkbox" checked={!selfPaced} onChange={() => setSelfPaced(!selfPaced)} className="checkbox" />
-                <span className="text-sm">With Teacher</span>
+
+              <label className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                paymentChoice === 'subscription' ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
+              }`}>
+                <input 
+                  type="radio" 
+                  name="payment" 
+                  checked={paymentChoice === 'subscription'} 
+                  onChange={() => { setPaymentChoice('subscription'); setSubscriptionPlan('monthly'); }} 
+                  className="w-5 h-5 text-green-600"
+                />
+                <div className="flex-1">
+                  <div className="font-semibold text-gray-900 dark:text-white">Platform Subscription</div>
+                  <div className="text-xs text-gray-500">Unlimited access to all paths</div>
+                </div>
               </label>
+
+              {paymentChoice === 'subscription' && (
+                <div className="ml-8 flex gap-2">
+                  <button 
+                    onClick={() => setSubscriptionPlan('monthly')} 
+                    className={`flex-1 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                      subscriptionPlan === 'monthly' 
+                        ? 'bg-green-600 text-white shadow-lg' 
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                    }`}
+                  >
+                    ${SUB_MONTHLY}/mo
+                  </button>
+                  <button 
+                    onClick={() => setSubscriptionPlan('annual')} 
+                    className={`flex-1 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                      subscriptionPlan === 'annual' 
+                        ? 'bg-green-600 text-white shadow-lg' 
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                    }`}
+                  >
+                    ${SUB_ANNUAL}/yr
+                  </button>
+                </div>
+              )}
             </div>
+
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-4">
+              <label className="flex items-center gap-2 text-sm cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  checked={buyForAnother.enabled} 
+                  onChange={(e) => setBuyForAnother({ ...buyForAnother, enabled: e.target.checked })} 
+                  className="w-4 h-4 text-green-600 rounded"
+                />
+                <span className="text-gray-700 dark:text-gray-300">Gift to someone else</span>
+              </label>
+
+              {buyForAnother.enabled && (
+                <input 
+                  placeholder="Recipient's email" 
+                  value={buyForAnother.recipientEmail} 
+                  onChange={(e) => setBuyForAnother({ ...buyForAnother, recipientEmail: e.target.value })} 
+                  className="w-full mt-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                />
+              )}
             </div>
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md ">
 
-            <div className="mt-4 border-t pt-4">
-              <h5 className="font-semibold text-gray-900 dark:text-white">Payment Options</h5>
+            {/* Guardian Section */}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+              <label className="flex items-center gap-2 text-sm cursor-pointer mb-3">
+                <input 
+                  type="checkbox" 
+                  checked={isMinor} 
+                  onChange={() => setIsMinor(!isMinor)} 
+                  className="w-4 h-4 text-green-600 rounded"
+                />
+                <span className="text-gray-700 dark:text-gray-300">I'm under 18 (guardian required)</span>
+              </label>
 
-              <div className="mt-3 space-y-2">
+              {isMinor && (
+                <div className="space-y-2">
+                  <input 
+                    placeholder="Guardian name" 
+                    value={guardianContact.name} 
+                    onChange={(e) => setGuardianContact({ ...guardianContact, name: e.target.value })} 
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+                  />
+                  <input 
+                    placeholder="Guardian email" 
+                    value={guardianContact.email} 
+                    onChange={(e) => setGuardianContact({ ...guardianContact, email: e.target.value })} 
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+                  />
+                  <input 
+                    placeholder="Guardian phone" 
+                    value={guardianContact.phone} 
+                    onChange={(e) => setGuardianContact({ ...guardianContact, phone: e.target.value })} 
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+                  />
 
-                <div className="mt-3">
-                  <label className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" checked={buyForAnother.enabled} onChange={(e) => setBuyForAnother({ ...buyForAnother, enabled: e.target.checked })} />
-                    <span>Buy this for another user</span>
-                  </label>
-
-                  {buyForAnother.enabled && (
-                    <div className="mt-2">
-                      <input placeholder="Recipient's email" value={buyForAnother.recipientEmail} onChange={(e) => setBuyForAnother({ ...buyForAnother, recipientEmail: e.target.value })} className="w-full px-3 py-2 rounded border border-gray-200 dark:border-gray-700" />
+                  {requestSent && (
+                    <div className="mt-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-sm text-green-700 dark:text-green-400">
+                      ✓ Payment request sent to guardian
                     </div>
                   )}
                 </div>
-                
-
-                <label className={`flex items-center gap-3 p-3 rounded-lg border ${paymentChoice === 'path' ? 'border-green-600 bg-green-50' : 'border-gray-100 dark:border-gray-700'}`}>
-                  <input type="radio" name="paymentChoice" checked={paymentChoice === 'path'} onChange={() => setPaymentChoice('path')} />
-                  <div>
-                    <div className="text-sm font-medium">Buy full learning path</div>
-                    <div className="text-xs text-gray-500">${PRICE_PER_PATH} for entire path</div>
-                  </div>
-                </label>
-
-                <label className={`flex items-center gap-3 p-3 rounded-lg border ${paymentChoice === 'subscription' ? 'border-green-600 bg-green-50' : 'border-gray-100 dark:border-gray-700'}`}>
-                  <input type="radio" name="paymentChoice" checked={paymentChoice === 'subscription'} onChange={() => { setPaymentChoice('subscription'); setSubscriptionPlan('monthly'); }} />
-                  <div>
-                    <div className="text-sm font-medium">Platform subscription</div>
-                    <div className="text-xs text-gray-500">${SUB_MONTHLY}/month or ${SUB_ANNUAL}/year</div>
-                  </div>
-                </label>
-
-                {paymentChoice === 'subscription' && (
-                  <div className="mt-2 flex gap-2">
-                    <button onClick={() => setSubscriptionPlan('monthly')} className={`px-3 py-2 rounded ${subscriptionPlan === 'monthly' ? 'bg-green-600 text-white' : 'bg-white border border-gray-200'}`}>Monthly</button>
-                    <button onClick={() => setSubscriptionPlan('annual')} className={`px-3 py-2 rounded ${subscriptionPlan === 'annual' ? 'bg-green-600 text-white' : 'bg-white border border-gray-200'}`}>Annual</button>
-                  </div>
-                )}
-
-                {/* Guardian / Parent flow */}
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md">
-            <div className="flex items-center gap-3 mb-3">
-              <Star className="text-green-600" />
-              <h4 className="font-bold text-gray-900 dark:text-white">Account Type & Guardians</h4>
+              )}
             </div>
 
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">Indicate whether you are signing up as a minor (under parent/guardian) or an adult student. Minors cannot complete payments directly; use the guardian request flow below.</p>
-
-            <label className="flex items-center gap-2 mb-2">
-              <input type="checkbox" checked={isMinor} onChange={() => setIsMinor(!isMinor)} />
-              <span className="text-sm">I am under a parent/guardian</span>
-            </label>
-
-            {isMinor && (
-              <div className="space-y-2 mt-3">
-                <input placeholder="Guardian name" value={guardianContact.name} onChange={(e) => setGuardianContact({ ...guardianContact, name: e.target.value })} className="w-full px-3 py-2 rounded border border-gray-200 dark:border-gray-700" />
-                <input placeholder="Guardian email" value={guardianContact.email} onChange={(e) => setGuardianContact({ ...guardianContact, email: e.target.value })} className="w-full px-3 py-2 rounded border border-gray-200 dark:border-gray-700" />
-                <input placeholder="Guardian phone" value={guardianContact.phone} onChange={(e) => setGuardianContact({ ...guardianContact, phone: e.target.value })} className="w-full px-3 py-2 rounded border border-gray-200 dark:border-gray-700" />
-
-                {requestSent && (
-                  <div className="mt-2 text-sm text-green-700">Payment request queued — guardian will receive an email/SMS with payment link (simulated).</div>
-                )}
+            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-gray-600 dark:text-gray-300">Total Amount</span>
+                <span className="text-2xl font-bold text-gray-900 dark:text-white">${priceForSelection()}</span>
               </div>
-            )}
-          </div>
 
-                <div className="mt-4">
-                  <div className="text-sm text-gray-600 mb-2">Total: <strong>${priceForSelection()}</strong></div>
-                  {isMinor ?  <button onClick={handleSendGuardianRequest} className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold">Send Payment Request</button>
-                  : <button onClick={handleBuy} className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold">Proceed to Payment</button>}
+              {isMinor ? (
+                <button 
+                  onClick={handleSendGuardianRequest} 
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                >
+                  Send Guardian Request
+                </button>
+              ) : (
+                <button 
+                  onClick={handleBuy} 
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                > Proceed to Payment</button>)}
                 </div>
               </div>
-            </div>
-          </div>
 
           
 
           {/* Quick actions */}
-          <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-md flex flex-col gap-3">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md flex flex-col gap-3">
             <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-gray-100 hover:bg-gray-50">
               <div className="flex items-center gap-3"><Gift /><span className="font-medium">Claim Welcome Bonus</span></div>
               <ArrowRight />
@@ -333,35 +560,51 @@ export default function WelcomeDashboardContent() {
             </button>
           </div>
         </aside>
-      </section>
+      </div>
+      <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 shadow-xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Why Choose MyPath?
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 text-lg">
+              MyPath adapts to where you are. Start at any point and we'll intelligently recommend your next steps.
+            </p>
 
-      {/* Promotional long section - marketing copy + details */}
-      <section className="bg-gradient-to-br from-green-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 shadow-lg mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Why choose MyPath?</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">MyPath adapts to where you are. Start at any point in a journey and we will intelligently recommend the next steps. Want to go from Basic Coding → Web Development → AI? It’s seamless — your progress, projects and portfolio travel with you.</p>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <div className="bg-green-100 dark:bg-green-900 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                  <Network className="text-green-600 dark:text-green-400" size={24} />
+                </div>
+                <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Connected Journeys</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Seamlessly transition between paths as you grow. Your progress travels with you.
+                </p>
+              </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
-            <h4 className="font-semibold mb-2">Connected Journeys</h4>
-            <p className="text-sm text-gray-600">Paths are interconnected — your learning history informs recommended next courses and projects.</p>
-          </div>
-          <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
-            <h4 className="font-semibold mb-2">Flexible Payments</h4>
-            <p className="text-sm text-gray-600">Buy single modules, courses, full paths, or subscribe monthly/annually. Gift courses to others.</p>
-          </div>
-          <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
-            <h4 className="font-semibold mb-2">Teacher & Self-Paced</h4>
-            <p className="text-sm text-gray-600">Choose self-paced learning or hand-pick a teacher for live sessions and mentorship.</p>
-          </div>
-        </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <div className="bg-blue-100 dark:bg-blue-900 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                  <Gift className="text-blue-600 dark:text-blue-400" size={24} />
+                </div>
+                <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Flexible Payments</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Pay per module, course, or path. Subscribe monthly or annually for unlimited access.
+                </p>
+              </div>
 
-        <div className="mt-6">
-          <p className="text-sm text-gray-600">Promotional: Enroll in a full learning path today for <strong>${PRICE_PER_PATH}</strong> — includes 5+ stages, project work, assessments, and a certificate on completion.</p>
-        </div>
-      </section>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <div className="bg-purple-100 dark:bg-purple-900 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                  <Users className="text-purple-600 dark:text-purple-400" size={24} />
+                </div>
+                <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white">Learn Your Way</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Choose self-paced learning or work with an expert teacher for personalized guidance.
+                </p>
+              </div>
+            </div>
+          </div>
+
 
       {/* Empty state CTA when nothing booked */}
-      <section className="p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-md">
+      <section className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-md">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">You haven't booked or paid for a course yet</h3>
@@ -376,7 +619,7 @@ export default function WelcomeDashboardContent() {
 
       {/* Tips / Next Steps */}
       <section className="mt-8 grid md:grid-cols-3 gap-6">
-        <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
           <h4 className="font-semibold">Next Steps</h4>
           <ol className="text-sm text-gray-600 mt-2 space-y-2">
             <li>1. Choose a learning journey</li>
@@ -385,15 +628,15 @@ export default function WelcomeDashboardContent() {
             <li>4. Start learning — projects & portfolio included</li>
           </ol>
         </div>
-        <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
           <h4 className="font-semibold">Support</h4>
           <p className="text-sm text-gray-600 mt-2">Need help? Contact support at <a className="text-green-600">support@mypath.example</a> or call <span className="font-medium">0703618918</span>.</p>
         </div>
-        <div className="p-4 bg-white dark:bg-gray-900 rounded-lg">
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
           <h4 className="font-semibold">Gift & Share</h4>
           <p className="text-sm text-gray-600 mt-2">Buy a course or entire path for a friend or family member. They will receive a redemption link via email.</p>
         </div>
       </section>
     </main>
-  );
+    );
 }
