@@ -1,7 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Home,
   Calendar,
@@ -15,44 +17,67 @@ import {
   Menu,
   LogOut
 } from 'lucide-react';
-import Link from 'next/link';
 
+export default function StudentDashboardNav({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const [collapsed, setCollapsed] = useState(false);
 
-export default function StudentDashboardNav({children}: {children: React.ReactNode}) {
   return (
-    <div className="flex h-screen w-full bg-gray-50 dark:bg-gray-900">
-      {/* Left Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-6">
-        {/* Profile */}
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-20 h-20 relative rounded-full overflow-hidden shadow-md">
+    <div className="flex h-screen w-full bg-gray-50 dark:bg-gray-900 transition-colors">
+
+      {/* Sidebar */}
+      <aside
+        className={`hidden md:flex flex-col border-r border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 
+        ${collapsed ? 'w-20 bg-green-600 text-white' : 'w-56 bg-white dark:bg-gray-800'} p-4`}
+      >
+        {/* Collapse Toggle */}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className={`flex items-center justify-center mb-6 p-2 rounded-lg hover:bg-green-700 transition ${collapsed ? 'text-white' : 'text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700'}`}
+        >
+          <Menu size={20} />
+        </button>
+
+        <div className="group flex flex-col items-center text-center mb-8 relative">
+          <button className={`relative overflow-hidden rounded-full shadow-md transition-all duration-300 ${collapsed ? 'w-12 h-12' : 'w-20 h-20'} hover:rotate-3 hover:scale-105 ring-2 ring-transparent hover:ring-yellow-500`}>
             <Image src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&q=80" alt="User Avatar" fill className="object-cover" />
+          </button>
+
+          <div className={`flex flex-col items-center transition-opacity duration-300 ${collapsed ? 'opacity-0 pointer-events-none h-0' : 'opacity-100 h-auto'}`}>
+            <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Vincent Kioko</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-300">student.email@email.com</p>
           </div>
-          <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Student Name</h2>
-          <p className="text-sm text-gray-500">student.email@example.com</p>
+
+          {/* Profile Quick Menu
+          <div className="absolute text-left top-full left-0 mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-lg w-44 py-2 z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all">
+            <Link href="/student/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">View Profile</Link>
+            <Link href="/student/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</Link>
+          </div> */}
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 space-y-2 w-full">
-          <NavItem icon={<Home className='h-5 w-5' />} label="Dashboard" />
-          <NavItem icon={<Calendar className='h-5 w-5' />} label="Calendar & Schedule" />
-          <NavItem icon={<Video className='h-5 w-5' />} label="Live Classes" />
-          <NavItem icon={<BookCheck className='h-5 w-5' />} label="My Courses" />
-          <NavItem icon={<ClipboardList className='h-5 w-5' />} label="Assessments" />
-          <NavItem icon={<Star className='h-5 w-5' />} label="Learning Paths" />
-          <NavItem icon={<HelpCircle className='h-5 w-5' />} label="Help & Support" />
+          <NavItem href="/student/dashboard" icon={<Home className="h-5 w-5" />} label="Dashboard" collapsed={collapsed} />
+          <NavItem href="/student/schedule" icon={<Calendar className="h-5 w-5" />} label="Schedule" collapsed={collapsed} />
+          <NavItem href="/student/live" icon={<Video className="h-5 w-5" />} label="Live Classes" collapsed={collapsed} />
+          <NavItem href="/student/courses" icon={<BookCheck className="h-5 w-5" />} label="My Courses" collapsed={collapsed} />
+          <NavItem href="/student/assessment" icon={<ClipboardList className="h-5 w-5" />} label="Assessments" collapsed={collapsed} />
+          <NavItem href="/student/paths" icon={<Star className="h-5 w-5" />} label="Learning Paths" collapsed={collapsed} />
+          <NavItem href="/student/help" icon={<HelpCircle className="h-5 w-5" />} label="Help & Support" collapsed={collapsed} />
         </nav>
 
         {/* Logout */}
-        <button className="flex items-center gap-3 text-red-600 hover:text-red-700 mt-6 text-sm font-medium">
-          <LogOut size={18} /> Log Out
+        <button
+          className={`flex items-center gap-3 mt-6 text-sm font-medium transition ${collapsed ? 'justify-center text-white' : 'text-red-600 hover:text-red-700'}`}
+          onClick={() => router.replace('/')}
+        >
+          <LogOut size={18} />
+          {!collapsed && <span>Log Out</span>}
         </button>
       </aside>
 
-      {/* Main Area */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
-        {/* Top Bar */}
-        <header className="flex items-center justify-between bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
+        <header className="flex items-center justify-between shadow-md bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
           <div className="flex items-center gap-3">
             <button className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700"><Menu /></button>
             <h1 className="text-lg font-semibold text-gray-900 dark:text-white">Dashboard</h1>
@@ -64,31 +89,41 @@ export default function StudentDashboardNav({children}: {children: React.ReactNo
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full"></span>
             </button>
 
-            <button className="hidden sm:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+            <button className="hidden sm:flex items-center gap-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
               <Star size={16} /> Go Premium
             </button>
           </div>
         </header>
 
-        {/* Banner */}
-        {/* <div className="bg-gradient-to-r from-green-100 to-green-50 dark:from-green-700/20 dark:to-green-600/20 border-b border-green-200 dark:border-green-700 p-4 flex items-center justify-between">
-          <p className="text-sm text-green-800 dark:text-green-300 font-medium">Unlock all courses and paths with Unlimited Learning Access</p>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">Subscribe</button>
-        </div> */}
-
-        {/* CONTENT SLOT */}
-        <div className="flex-1 overflow-y-auto p-4 pb-24">
-          {children}
-        </div>
+        <div className="flex-1 overflow-y-auto p-4 pb-24">{children}</div>
       </div>
     </div>
   );
 }
 
-function NavItem({ icon, label, href='' }: { icon: React.ReactNode; label: string, href?: string }) {
+import { usePathname } from 'next/navigation';
+
+function NavItem({ icon, label, href, collapsed }: any) {
+  const pathname = usePathname();
+  const active = pathname === href;
+
   return (
-    <Link href={href} className="w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-lg text-sm">
-      {icon} <span>{label}</span>
+    <Link
+      href={href}
+      className={`relative group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
+        ${collapsed
+          ? `justify-center text-white hover:bg-green-700 ${active ? 'bg-green-700 shadow-inner' : ''}`
+          : `${active ? 'bg-green-100 dark:bg-green-700 text-green-700 dark:text-white font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'}`
+      }`}
+    >
+      {icon}
+      {!collapsed && <span className="transition-opacity duration-300">{label}</span>}
+
+      {collapsed && (
+        <span className="absolute left-full ml-3 whitespace-nowrap bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+          {label}
+        </span>
+      )}
     </Link>
   );
 }

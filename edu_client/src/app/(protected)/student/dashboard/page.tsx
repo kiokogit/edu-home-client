@@ -4,7 +4,7 @@ import WelcomeDashboardContent from "@/components/StudentDash";
 import StudentDashboardHome from "@/components/StudentSubscDash";
 
 const page = () => {
-    const [isEnrolled, setIsEnrolled] = React.useState(false);
+    const [isEnrolled, setIsEnrolled] = React.useState(true);
 
   return <div>
 {!isEnrolled ? <WelcomeDashboardContent /> : <StudentDashboardHome />}

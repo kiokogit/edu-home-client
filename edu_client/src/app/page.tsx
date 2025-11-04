@@ -69,8 +69,8 @@ export default function LMSLandingPage() {
   const Modal = ({ show, onClose, title, children }) => {
     if (!show) return null;
     return (
-      <div className="fixed inset-0 bg-green bg-opacity-20 dark:bg-opacity-20 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={onClose}>
-        <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 relative animate-fadeIn shadow-xl" onClick={(e) => e.stopPropagation()}>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={onClose}>
+        <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 relative animate-fadeIn border border-gray-200" onClick={(e) => e.stopPropagation()}>
           <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
             <X size={24} />
           </button>
@@ -219,7 +219,7 @@ export default function LMSLandingPage() {
 
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* Curriculum List */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 border border-gray-100 dark:border-gray-700">
               <div className="space-y-4">
                 {[
                   { name: "CBC", full: "Competency Based Curriculum", icon: "🇰🇪" },
@@ -248,7 +248,7 @@ export default function LMSLandingPage() {
 
             {/* Feature Cards */}
             <div className="space-y-6">
-              <div className="bg-gradient-to-br from-green-600 to-green-700 dark:from-green-500 dark:to-green-600 p-8 rounded-2xl shadow-xl text-white">
+              <div className="bg-gradient-to-br from-green-600 to-green-700 dark:from-green-500 dark:to-green-600 p-8 rounded-2xl border border-gray-200 text-white">
                 <Globe className="mb-4 animate-float" size={56} />
                 <h3 className="text-2xl font-bold mb-3">Learn from Anywhere</h3>
                 <p className="text-green-50">
@@ -256,7 +256,7 @@ export default function LMSLandingPage() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 border border-gray-100 dark:border-gray-700">
                 <BookOpen className="text-green-600 dark:text-green-400 mb-4" size={56} />
                 <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Flexible Learning Paths</h3>
                 <p className="text-gray-600 dark:text-gray-300">
@@ -264,7 +264,7 @@ export default function LMSLandingPage() {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl border border-gray-200 border border-gray-100 dark:border-gray-700">
                 <Award className="text-green-600 dark:text-green-400 mb-4" size={56} />
                 <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Certified Excellence</h3>
                 <p className="text-gray-600 dark:text-gray-300">
@@ -283,7 +283,7 @@ export default function LMSLandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingPlans.map((plan, idx) => (
-              <div key={idx} className={`rounded-xl p-6 ${plan.highlight
+              <div key={idx} className={`rounded-xl p-6 border border-gray-200 ${plan.highlight
                   ? 'bg-green-600 dark:bg-green-500 text-white shadow-2xl scale-105'
                   : 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white'
                 } hover-lift relative`}>
@@ -334,17 +334,17 @@ export default function LMSLandingPage() {
             We believe quality education should reach every corner of the world, especially Africa. Our platform is built with professionalism, monitored for safety, and optimized for accessibility.
           </p>
           <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg border border-gray-200 dark:backdrop-blur">
               <Shield className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
               <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Professional & Monitored</h3>
               <p className="text-gray-600 dark:text-gray-200">All sessions are secure, private, and monitored for quality assurance</p>
             </div>
-            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg border border-gray-200 dark:backdrop-blur">
               <Users className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
               <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Community Learning</h3>
               <p className="text-gray-600 dark:text-gray-200">Student walls enable peer collaboration and knowledge sharing</p>
             </div>
-            <div className="bg-white dark:bg-white/10 p-6 rounded-lg shadow-lg dark:backdrop-blur">
+            <div className="bg-white dark:bg-white/10 p-6 rounded-lg border border-gray-200 dark:backdrop-blur">
               <Wifi className="mx-auto mb-4 text-green-600 dark:text-green-400" size={48} />
               <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Low-Data Friendly</h3>
               <p className="text-gray-600 dark:text-gray-200">Engineered to work perfectly on mobile devices with limited connectivity</p>
@@ -361,7 +361,7 @@ export default function LMSLandingPage() {
           <p className="text-xl mb-8 text-green-50">Join thousands of students and teachers already using MyPath</p>
           <button
             onClick={() => setShowRegisterModal(true)}
-            className="bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition hover-lift shadow-xl"
+            className="bg-white dark:bg-gray-900 text-green-600 dark:text-green-400 px-12 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition hover-lift border border-gray-200"
           >
             Start Your Free Trial Today
           </button>
