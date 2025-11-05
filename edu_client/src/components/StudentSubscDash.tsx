@@ -5,18 +5,13 @@ import {
     PlayCircle,
     ArrowRight,
     Calendar,
-    Clock,
     Star,
-    Award,
-    Sparkles,
-    SunMoon,
     UserCheck,
 } from 'lucide-react';
 
 
 export default function StudentDashboardHome_Final() {
-    // Demo / simulated state
-    const [dark, setDark] = useState(false);
+
     const [loaded, setLoaded] = useState(false); // for chart animation
     const [isTutorPaced, setIsTutorPaced] = useState(true);
     const [isMinor, setIsMinor] = useState(false);
@@ -62,11 +57,6 @@ export default function StudentDashboardHome_Final() {
         return <span className="inline-block w-2 h-2 rounded-full bg-gray-400 ring-1 ring-white" />;
     }
 
-    const coursesInProgress = [
-        { id: 'c1', title: 'Learn Basics of Coding (Kids Age 8-12)', track: 'Basic Coding', progress: 45, hours: '1.8h / 4h', icon: 'https://cdn-icons-png.flaticon.com/512/5968/5968292.png' }, 
-        { id: 'c2', title: 'Web Development Foundations', track: 'Web Development', progress: 30, hours: '2.1h / 6h', icon: 'https://cdn-icons-png.flaticon.com/512/919/919826.png' }, 
-        { id: 'c3', title: 'Beginner AI & Machine Learning Concepts', track: 'AI & Machine Learning', progress: 12, hours: '0.5h / 4h', icon: 'https://cdn-icons-png.flaticon.com/512/1048/1048946.png' }];
-
     return (
         <div className={`min-h-screen text-gray-900 dark:text-gray-100 transition-colors`}>
             {/* Header with dark mode toggle */}
@@ -85,32 +75,235 @@ export default function StudentDashboardHome_Final() {
             </div>
 
             {/* Main layout */}
-            {/* Courses In Progress */}
-            <section className='mb-6'>
+            {/* Learning Path in Progress — Game & Game Development */}
+            <section className="mb-6">
                 <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200">Courses in Progress</h2>
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200">Learning Path in Progress</h2>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">Progress saved automatically</div>
                 </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                    {coursesInProgress.map((course) => (
-                        <div key={course.id} className="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.1)] space-y-3">
-                            <div className="flex items-center gap-3">
-                                <img src={course.icon} alt="icon" className="w-8 h-8" />
-                                <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">{course.track}</span>
-                            </div>
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-50 text-sm">{course.title}</h3>
-                            <div className="w-full bg-gray-200 h-2 rounded-full">
-                                <div className="bg-green-600 h-2 rounded-full" style={{ width: `${course.progress}%` }} />
-                            </div>
-                            <div className="flex justify-between text-xs text-gray-500">
-                                <span>{course.hours}</span>
-                                <button className="cursor-pointer flex items-center gap-1 text-green-600 text-xs font-medium">
-                                    Continue <PlayCircle size={14} />
-                                </button>
+
+                <div className="p-5 bg-white dark:bg-gray-800 rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.08)] space-y-5">
+                    {/* Path Overview */}
+                    <div className="flex flex-wrap items-center gap-4">
+                        {/* Hero */}
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-green-50 dark:bg-[#071018] flex items-center justify-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1048/1048946.png" alt="Game Dev" className="w-10 h-10 sm:w-12 sm:h-12" />
+                        </div>
+
+                        {/* Text */}
+                        <div className="flex-1 min-w-[200px]">
+                            <h3 className="font-bold text-gray-900 dark:text-gray-100 text-md">Game Development Learning Path</h3>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                Design & build 2D and 3D games — from mechanics to scripting, AI & publishing.
+                            </p>
+                            <div className="mt-3 flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
+                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-md">5 courses</span>
+                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-md">16+ modules</span>
+                                <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-md">Certificate</span>
                             </div>
                         </div>
-                    ))}
+
+                        {/* Overall Progress */}
+                        <div className="min-w-[160px] max-w-[250px] flex flex-col w-full sm:w-auto">
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Path completion</div>
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                                <div className="bg-green-600 dark:bg-emerald-400 h-3 rounded-full" style={{ width: '40%' }} />
+                            </div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">40% complete</div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 auto-rows-auto">
+                        {[
+                            {
+                                id: 's1',
+                                title: 'Game Design',
+                                status: 'completed',
+                                modules: [
+                                    { id: 'm1', title: 'What is a Game?', done: true },
+                                    { id: 'm2', title: 'Game Loops', done: true },
+                                    { id: 'm3', title: 'Character vs Player', done: true },
+                                ],
+                                purchased: true,
+                                resources: 4,
+                                assignments: 2,
+                                projects: 1,
+                                sandbox: 1,
+                            },
+                            {
+                                id: 's2',
+                                title: '2D Game Engines',
+                                status: 'completed',
+                                modules: [
+                                    { id: 'm1', title: 'Sprites & Assets', done: true },
+                                    { id: 'm2', title: 'Scene & World', done: true },
+                                ],
+                                purchased: true,
+                                resources: 4,
+                                assignments: 2,
+                                projects: 1,
+                                sandbox: 1,
+                                priceUSD: 10
+                            },
+                            {
+                                id: 's3',
+                                title: '3D Basics & Unity',
+                                status: 'current',
+                                progress: 45,
+                                modules: [
+                                    { id: 'm1', title: 'Unity Interface', done: true, is_current: false },
+                                    { id: 'm2', title: '3D Transformations', done: false, is_current: true },
+                                    { id: 'm3', title: 'Prefabs & Scenes', done: false, is_current: false },
+                                ],
+                                purchased: true,
+                                resources: 3,
+                                assignments: 8,
+                                projects: 1,
+                                sandbox: 1,
+                            },
+                            {
+                                id: 's4',
+                                title: 'Scripting & Game AI',
+                                status: 'upcoming',
+                                modules: [
+                                    { id: 'm1', title: 'Internal Scripting', done: false },
+                                    { id: 'm2', title: 'Command issuance', done: false },
+                                    { id: 'm3', title: 'Strange and Design', done: false },
+                                    { id: 'm4', title: 'Desiging for life', done: false },
+                                ],
+                                purchased: false,
+                                priceUSD: 10,
+                                resources: 4,
+                                assignments: 2,
+                                projects: 0,
+                                sandbox: 1,
+                            },
+                            {
+                                id: 's5',
+                                title: 'Publish & Iterate',
+                                status: 'upcoming',
+                                modules: [
+                                    { id: 'm1', title: 'Zbook publishing', done: false },
+                                    { id: 'm2', title: 'Strange and Design', done: false },
+                                ],
+                                purchased: false,
+                                priceUSD: 20,
+                                resources: 1,
+                                assignments: 4,
+                                projects: 1,
+                                sandbox: 1,
+                            }
+                        ].map(stage => {
+
+
+                            return (
+                                <div
+                                    key={stage.id}
+                                    className={`
+                                            p-4 rounded-xl border transition shadow-sm flex flex-col justify-between min-h-[280px]
+                                            ${stage.status === 'completed'
+                                            ? 'bg-white dark:bg-gray-900 border-emerald-200 dark:border-emerald-800'
+                                            : stage.status === 'current'
+                                                ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300 dark:border-yellow-600 animate-[softPulse_3s_ease-in-out_infinite]'
+                                                : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+                                        }
+                                    `}
+                                >
+                                    {/* Header */}
+                                    <div className="flex items-start justify-between gap-3 min-w-0">
+                                        <div className="min-w-0">
+                                            <div className="flex items-center gap-2">
+                                                {stage.status === 'completed' && (
+                                                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center">✓</span>
+                                                )}
+
+                                                {stage.status === 'current' && (
+                                                    <span className="w-5 h-5 rounded-full bg-yellow-500 text-gray-900 text-[10px] flex items-center justify-center animate-[softPulse_1.5s_ease-in-out_infinite]">▶</span>
+                                                )}
+
+                                                {stage.status === 'upcoming' && (
+                                                    <span className="w-5 h-5 rounded-full bg-gray-300 dark:bg-gray-700 text-gray-600 text-[10px] flex items-center justify-center">•</span>
+                                                )}
+
+                                                <div className="font-semibold text-sm text-gray-900 dark:text-gray-100 leading-snug break-words">
+                                                    {stage.title}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* CTA */}
+                                        <div className="flex flex-col items-end gap-2">
+                                            {stage.status === 'current' && (
+                                                <>
+                                                    <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
+                                                        <div className="bg-emerald-600 dark:bg-emerald-400 h-2 rounded-full" style={{ width: `${stage.progress}%` }} />
+                                                    </div>
+                                                    <button className="px-3 py-1 rounded-md bg-emerald-600 text-white text-xs flex items-center gap-1 cursor-pointer">
+                                                        Continue <PlayCircle size={14} />
+                                                    </button>
+                                                </>
+                                            )}
+
+                                            {stage.status === 'upcoming' && !stage.purchased && (
+                                                <button className="cursor-pointer px-3 py-1 rounded-md bg-white text-emerald-600 border border-gray-200 dark:border-gray-700 text-xs">
+                                                    Buy Course (KES {stage.priceUSD})
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Modules */}
+                                    <div className="mt-3 space-y-2 border-t pt-3 border-gray-200 dark:border-gray-700 flex-1">
+                                        {Array.isArray(stage.modules) && stage.modules.map((mod) => (
+                                            <div key={mod.id} className="flex items-center justify-between text-xs">
+                                                <div className="flex items-center gap-2">
+                                                    {mod.done ? (
+                                                        <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center">✓</span>
+                                                    ) : mod.is_current ? (
+                                                        <span className="w-4 h-4 rounded-full bg-yellow-500 text-gray-900 text-[10px] flex items-center justify-center animate-[softPulse_1.5s_ease-in-out_infinite]">▶</span>
+                                                    ) : (
+                                                        <span className="w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                                                    )}
+                                                    <span className="text-gray-700 dark:text-gray-300">{mod.title}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Badges */}
+                                    <div className="flex flex-wrap gap-2 border-t pt-3 border-gray-200 dark:border-gray-700">
+                                        {[
+                                            { label: `${Array.isArray(stage.modules) ? stage.modules.length : stage.modules} modules`, show: true },
+                                            { label: `${stage.resources} resources`, show: stage.resources > 0 },
+                                            { label: `${stage.projects} project${stage.projects > 1 ? 's' : ''}`, show: stage.projects > 0 },
+                                            { label: `${stage.assignments} assignment${stage.assignments > 1 ? 's' : ''}`, show: stage.assignments > 0 },
+                                            { label: `${stage.sandbox} sandbox test${stage.sandbox > 1 ? 's' : ''}`, show: stage.sandbox > 0 },
+                                        ]
+                                            .filter(item => item.show)
+                                            .map((item, index) => (
+                                                <span
+                                                    key={index}
+                                                    className={`
+            px-2 py-[2px] text-[10px] font-medium rounded-md border
+            ${stage.status === 'completed' ? 'bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700' : ''}
+            ${stage.status === 'current' ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-600' : ''}
+            ${stage.status === 'upcoming' ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600' : ''}
+          `}
+                                                >
+                                                    {item.label}
+                                                </span>
+                                            ))}
+                                    </div>
+                                </div>
+
+                            );
+                        })}
+                    </div>
+
                 </div>
-            </section >
+            </section>
+
+
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Left Main Column */}
 
@@ -256,9 +449,9 @@ export default function StudentDashboardHome_Final() {
                     {/* Top Teachers */}
                     <div className={`shadow-[0_6px_20px_rgba(0,0,0,0.1)] bg-white dark:bg-gray-800 divide-gray-700 divide-y rounded-xl p-4`}>
                         <div className="pb-3">
-                                <h2 className="text-sm font-semibold">Top Tutors</h2>
-                                <p className="text-xs text-gray-400">Book Top Tutors for your lessons</p>
-                            </div>
+                            <h2 className="text-sm font-semibold">Top Tutors</h2>
+                            <p className="text-xs text-gray-400">Book Top Tutors for your lessons</p>
+                        </div>
                         <div className="space-y-3 pt-3">
                             {topTeachers.map((t) => (
                                 <div key={t.id} className="flex items-center justify-between gap-3">
@@ -280,9 +473,9 @@ export default function StudentDashboardHome_Final() {
                     {/* Top Courses */}
                     <div className={`shadow-[0_6px_20px_rgba(0,0,0,0.1)] bg-white dark:bg-gray-800 divide-gray-700 divide-y  rounded-xl p-4`}>
                         <div className="pb-3">
-                                <h2 className="text-sm font-semibold">Top Courses</h2>
-                                <p className="text-xs text-gray-400">Visit most popular courses</p>
-                            </div>
+                            <h2 className="text-sm font-semibold">Top Courses</h2>
+                            <p className="text-xs text-gray-400">Visit most popular courses</p>
+                        </div>
                         <div className="space-y-3 pt-3">
                             <div className="text-sm font-medium flex items-center justify-between gap-3">HTML & CSS Essentials <button className="cursor-pointer ml-2 text-xs text-green-600">View</button></div>
                             <div className="text-sm font-medium flex items-center justify-between gap-3">Scratch for Young Coders <button className="cursor-pointer ml-2 text-xs text-green-600">View</button></div>
@@ -293,9 +486,9 @@ export default function StudentDashboardHome_Final() {
                     {/* Live & Scheduled / Quick Actions */}
                     <div className={`shadow-[0_6px_20px_rgba(0,0,0,0.1)] bg-white dark:bg-gray-800 divide-gray-700 divide-y rounded-xl p-4`}>
                         <div className="pb-3">
-                                <h2 className="text-sm font-semibold">Live & Scheduled</h2>
-                                <p className="text-xs text-gray-400">Visit most popular courses</p>
-                            </div>
+                            <h2 className="text-sm font-semibold">Live & Scheduled</h2>
+                            <p className="text-xs text-gray-400">Visit most popular courses</p>
+                        </div>
                         <div className="space-y-3 pt-3 text-sm text-gray-400">
                             <div className="flex items-center justify-between">
                                 <div>
