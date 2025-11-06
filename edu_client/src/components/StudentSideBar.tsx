@@ -15,7 +15,8 @@ import {
   Star,
   Bell,
   Menu,
-  LogOut
+  LogOut,
+  CodeIcon
 } from 'lucide-react';
 
 export default function StudentDashboardNav({ children }: { children: React.ReactNode }) {
@@ -59,9 +60,8 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
           <NavItem href="/student/dashboard" icon={<Home className="h-5 w-5" />} label="Dashboard" collapsed={collapsed} />
           <NavItem href="/student/schedule" icon={<Calendar className="h-5 w-5" />} label="Schedule" collapsed={collapsed} />
           <NavItem href="/student/live" icon={<Video className="h-5 w-5" />} label="Live Classes" collapsed={collapsed} />
-          <NavItem href="/student/courses" icon={<BookCheck className="h-5 w-5" />} label="My Courses" collapsed={collapsed} />
-          <NavItem href="/student/assessment" icon={<ClipboardList className="h-5 w-5" />} label="Assessments" collapsed={collapsed} />
-          <NavItem href="/student/paths" icon={<Star className="h-5 w-5" />} label="Learning Paths" collapsed={collapsed} />
+          <NavItem href="/student/catalog" icon={<BookCheck className="h-5 w-5" />} label="Catalogue" collapsed={collapsed} />
+          <NavItem href="/student/sandbox" icon={<CodeIcon className="h-5 w-5" />} label="Sandbox" collapsed={collapsed} />
           <NavItem href="/student/help" icon={<HelpCircle className="h-5 w-5" />} label="Help & Support" collapsed={collapsed} />
         </nav>
 
@@ -95,7 +95,7 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 pb-24">{children}</div>
+        <div className="flex-1 overflow-y-auto pb-24">{children}</div>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import {
     Star,
     UserCheck,
 } from 'lucide-react';
+import Link from 'next/link';
 
 
 export default function StudentDashboardHome_Final() {
@@ -36,9 +37,9 @@ export default function StudentDashboardHome_Final() {
     ];
 
     const topTeachers = [
-        { id: 't1', name: 'Aisha K.', avatar: 'https://i.pravatar.cc/150?img=47', status: 'online' },
-        { id: 't2', name: 'Daniel M.', avatar: 'https://i.pravatar.cc/150?img=12', status: 'busy' },
-        { id: 't3', name: 'Priya R.', avatar: 'https://i.pravatar.cc/150?img=33', status: 'idle' },
+        { id: 't1', name: 'Aisha K.', avatar: 'https://i.pravatar.cc/150?img=47', status: 'available' },
+        { id: 't2', name: 'Daniel M.', avatar: 'https://i.pravatar.cc/150?img=12', status: 'fully booked' },
+        { id: 't3', name: 'Priya R.', avatar: 'https://i.pravatar.cc/150?img=33', status: 'not available' },
     ];
 
     // Chart data: time spent in minutes per day (Mon..Sun)
@@ -52,8 +53,8 @@ export default function StudentDashboardHome_Final() {
 
 
     function statusDot(status: string) {
-        if (status === 'online') return <span className="inline-block w-2 h-2 rounded-full bg-green-400 ring-1 ring-white" />;
-        if (status === 'busy') return <span className="inline-block w-2 h-2 rounded-full bg-yellow-400 ring-1 ring-white" />;
+        if (status === 'available') return <span className="inline-block w-2 h-2 rounded-full bg-green-400 ring-1 ring-white" />;
+        if (status === 'fully booked') return <span className="inline-block w-2 h-2 rounded-full bg-yellow-400 ring-1 ring-white" />;
         return <span className="inline-block w-2 h-2 rounded-full bg-gray-400 ring-1 ring-white" />;
     }
 
@@ -102,6 +103,9 @@ export default function StudentDashboardHome_Final() {
                                 <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-md">Certificate</span>
                             </div>
                         </div>
+                        <Link href="/student/catalog/game-development" className='text-sm font-medium text-green-600 flex items-center gap-1 cursor-pointer mx-6 hover:underline'>
+                            View
+                        </Link>
 
                         {/* Overall Progress */}
                         <div className="min-w-[160px] max-w-[250px] flex flex-col w-full sm:w-auto">
@@ -111,6 +115,7 @@ export default function StudentDashboardHome_Final() {
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">40% complete</div>
                         </div>
+                        
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 auto-rows-auto">
@@ -238,9 +243,9 @@ export default function StudentDashboardHome_Final() {
                                                     <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
                                                         <div className="bg-emerald-600 dark:bg-emerald-400 h-2 rounded-full" style={{ width: `${stage.progress}%` }} />
                                                     </div>
-                                                    <button className="px-3 py-1 rounded-md bg-emerald-600 text-white text-xs flex items-center gap-1 cursor-pointer">
+                                                    <Link href={`/student/catalog/${'dummy_id'}/learning/${stage.id}`} className="px-3 py-1 rounded-md bg-emerald-600 text-white text-xs flex items-center gap-1 cursor-pointer">
                                                         Continue <PlayCircle size={14} />
-                                                    </button>
+                                                    </Link>
                                                 </>
                                             )}
 
@@ -281,17 +286,18 @@ export default function StudentDashboardHome_Final() {
                                         ]
                                             .filter(item => item.show)
                                             .map((item, index) => (
-                                                <span
+                                                <Link
                                                     key={index}
+                                                    href={`/dashboard/student/path/${stage.id}/${item.label.split(' ')[1].toLowerCase()}`}
                                                     className={`
-            px-2 py-[2px] text-[10px] font-medium rounded-md border
-            ${stage.status === 'completed' ? 'bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700' : ''}
-            ${stage.status === 'current' ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-600' : ''}
-            ${stage.status === 'upcoming' ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600' : ''}
-          `}
+                                                        px-2 py-[2px] text-[10px] font-medium rounded-md border cursor-pointer hover:opacity-80 hover:scale-[1.05]
+                                                        ${stage.status === 'completed' ? 'bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700' : ''}
+                                                        ${stage.status === 'current' ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-600' : ''}
+                                                        ${stage.status === 'upcoming' ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600' : ''}
+                                                    `}
                                                 >
                                                     {item.label}
-                                                </span>
+                                                </Link>
                                             ))}
                                     </div>
                                 </div>
@@ -417,7 +423,7 @@ export default function StudentDashboardHome_Final() {
                     <section>
                         <div className="flex items-center justify-between mb-3">
                             <h2 className="text-lg font-semibold">✨ These May Be Perfect For You</h2>
-                            <button className={`text-sm dark:text-gray-300 text-green-600 font-medium flex items-center justify-between `}>See all <ArrowRight size={14} className='ml-1' /></button>
+                            <Link href={"/student/catalog"} className={`text-sm dark:text-gray-300 text-green-600 font-medium flex items-center justify-between `}>See all <ArrowRight size={14} className='ml-1' /></Link>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-4">
@@ -493,14 +499,14 @@ export default function StudentDashboardHome_Final() {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <div className="font-medium">Next Live Class</div>
-                                    <div className="text-xs">Scratch Game Logic • 16:00</div>
+                                    <div className="text-xs text-gray-700 dark:text-gray-100">Scratch Game Logic • 16:00</div>
                                 </div>
                                 <button className="cursor-pointer px-3 py-1 rounded-md bg-green-600 text-white text-xs">Join</button>
                             </div>
 
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <div className="font-medium">Schedule</div>
+                                    <div className="font-medium text-gray-700 dark:text-gray-100">Schedule</div>
                                     <div className="text-xs">View all lessons</div>
                                 </div>
                                 <button className={`px-3 py-1 rounded-md text-xs dark:bg-gray-800 text-gray-200 bg-white text-green-600 border dark:border-gray-700 border-gray-200`}>View</button>

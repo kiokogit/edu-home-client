@@ -262,7 +262,7 @@ export default function WelcomeDashboardContent() {
                         <div className="flex items-center justify-between mb-6">
                             <div className='w-full'>
                                 <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white mb-2 flex flex-row justify-between">
-                                    Choose Your Learning Path <Link href='/student/catalogue' className='text-xs md:text-md text-green-600 hover:underline cursor-pointer'>View Full Catalogue</Link>
+                                    Choose Your Learning Path <Link href='/student/catalog' className='text-xs md:text-md text-green-600 hover:underline cursor-pointer'>View Full Catalogue</Link>
                                 </h2>
                                 <p className="text-gray-600 text-sm dark:text-gray-300">
                                     Select from our curated learning journeys. Each path is designed to take you from beginner to expert.
@@ -347,9 +347,6 @@ export default function WelcomeDashboardContent() {
                             })}
                         </div>
                     </div>
-
-                    {/* Why MyPath Section */}
-
                 </div>
 
 
