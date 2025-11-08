@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 export default function StudentDashboardHome_Final() {
 
-    const [loaded, setLoaded] = useState(false); // for chart animation
+    const [loaded, setLoaded] = useState(true);
     const [isTutorPaced, setIsTutorPaced] = useState(true);
     const [isMinor, setIsMinor] = useState(false);
     const [guardian, setGuardian] = useState({ name: 'Jane Doe', email: 'guardian@example.com' });
@@ -42,11 +42,9 @@ export default function StudentDashboardHome_Final() {
         { id: 't3', name: 'Priya R.', avatar: 'https://i.pravatar.cc/150?img=33', status: 'not available' },
     ];
 
-    // Chart data: time spent in minutes per day (Mon..Sun)
     const weekData = [20, 35, 45, 30, 10, 5, 50];
 
     useEffect(() => {
-        // trigger chart animation after mount
         const t = setTimeout(() => setLoaded(true), 100);
         return () => clearTimeout(t);
     }, []);
@@ -111,7 +109,7 @@ export default function StudentDashboardHome_Final() {
                         <div className="min-w-[160px] max-w-[250px] flex flex-col w-full sm:w-auto">
                             <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Path completion</div>
                             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                                <div className="bg-green-600 dark:bg-emerald-400 h-3 rounded-full" style={{ width: '40%' }} />
+                                <div className="bg-green-600 dark:bg-green-400 h-3 rounded-full" style={{ width: '40%' }} />
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">40% complete</div>
                         </div>
@@ -207,7 +205,7 @@ export default function StudentDashboardHome_Final() {
                                     className={`
                                             p-4 rounded-xl border transition shadow-sm flex flex-col justify-between min-h-[280px]
                                             ${stage.status === 'completed'
-                                            ? 'bg-white dark:bg-gray-900 border-emerald-200 dark:border-emerald-800'
+                                            ? 'bg-white dark:bg-gray-900 border-green-200 dark:border-green-800'
                                             : stage.status === 'current'
                                                 ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300 dark:border-yellow-600 animate-[softPulse_3s_ease-in-out_infinite]'
                                                 : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
@@ -219,7 +217,7 @@ export default function StudentDashboardHome_Final() {
                                         <div className="min-w-0">
                                             <div className="flex items-center gap-2">
                                                 {stage.status === 'completed' && (
-                                                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center">✓</span>
+                                                    <span className="w-5 h-5 rounded-full bg-green-600 text-white text-[10px] flex items-center justify-center">✓</span>
                                                 )}
 
                                                 {stage.status === 'current' && (
@@ -241,16 +239,16 @@ export default function StudentDashboardHome_Final() {
                                             {stage.status === 'current' && (
                                                 <>
                                                     <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full">
-                                                        <div className="bg-emerald-600 dark:bg-emerald-400 h-2 rounded-full" style={{ width: `${stage.progress}%` }} />
+                                                        <div className="bg-green-600 dark:bg-green-400 h-2 rounded-full" style={{ width: `${stage.progress}%` }} />
                                                     </div>
-                                                    <Link href={`/student/catalog/${'dummy_id'}/learning/${stage.id}`} className="px-3 py-1 rounded-md bg-emerald-600 text-white text-xs flex items-center gap-1 cursor-pointer">
+                                                    <Link href={`/student/catalog/${'dummy_id'}/learning/${stage.id}`} className="px-3 py-1 rounded-md bg-green-600 text-white text-xs flex items-center gap-1 cursor-pointer">
                                                         Continue <PlayCircle size={14} />
                                                     </Link>
                                                 </>
                                             )}
 
                                             {stage.status === 'upcoming' && !stage.purchased && (
-                                                <button className="cursor-pointer px-3 py-1 rounded-md bg-white text-emerald-600 border border-gray-200 dark:border-gray-700 text-xs">
+                                                <button className="cursor-pointer px-3 py-1 rounded-md bg-white text-green-600 border border-gray-200 dark:border-gray-700 text-xs">
                                                     Buy Course (KES {stage.priceUSD})
                                                 </button>
                                             )}
@@ -263,7 +261,7 @@ export default function StudentDashboardHome_Final() {
                                             <div key={mod.id} className="flex items-center justify-between text-xs">
                                                 <div className="flex items-center gap-2">
                                                     {mod.done ? (
-                                                        <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center">✓</span>
+                                                        <span className="w-4 h-4 rounded-full bg-green-600 text-white text-[10px] flex items-center justify-center">✓</span>
                                                     ) : mod.is_current ? (
                                                         <span className="w-4 h-4 rounded-full bg-yellow-500 text-gray-900 text-[10px] flex items-center justify-center animate-[softPulse_1.5s_ease-in-out_infinite]">▶</span>
                                                     ) : (
@@ -291,7 +289,7 @@ export default function StudentDashboardHome_Final() {
                                                     href={`/dashboard/student/path/${stage.id}/${item.label.split(' ')[1].toLowerCase()}`}
                                                     className={`
                                                         px-2 py-[2px] text-[10px] font-medium rounded-md border cursor-pointer hover:opacity-80 hover:scale-[1.05]
-                                                        ${stage.status === 'completed' ? 'bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-700' : ''}
+                                                        ${stage.status === 'completed' ? 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700' : ''}
                                                         ${stage.status === 'current' ? 'bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-600' : ''}
                                                         ${stage.status === 'upcoming' ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600' : ''}
                                                     `}
@@ -378,12 +376,12 @@ export default function StudentDashboardHome_Final() {
                             {/* Animated bar chart (simple SVG-less implementation using divs) */}
                             <div className="flex items-end gap-3 h-40">
                                 {weekData.map((val, idx) => {
-                                    const height = Math.max(6, (val / 60) * 100); // normalize for display
+                                    const height = Math.max(6, (val / 60) * 100);
                                     return (
                                         <div key={idx} className="flex flex-col items-center" style={{ width: '36px' }}>
                                             <div className="h-full flex items-end w-full">
                                                 <div
-                                                    className={`w-full rounded-t-md transition-all duration-900 ease-out dark:bg-emerald-400 bg-green-600`}
+                                                    className={`w-full rounded-t-md transition-all duration-900 ease-out dark:bg-green-400 bg-green-600`}
                                                     style={{ height: `${loaded ? height : 4}%`, transitionDelay: `${idx * 60}ms` }}
                                                 />
                                             </div>
@@ -431,7 +429,7 @@ export default function StudentDashboardHome_Final() {
                                 <div key={r.id} className={`shadow-[0_6px_20px_rgba(0,0,0,0.1)] bg-white dark:bg-gray-800 rounded-xl p-4 hover:shadow-lg transition`}>
                                     <div className="flex items-start gap-3">
                                         <div className={`w-14 h-14 rounded-lg flex items-center justify-center dark:bg-[#071018] bg-green-50`}>
-                                            <Star className={'dark:text-emerald-300 text-green-600'} />
+                                            <Star className={'dark:text-green-300 text-green-600'} />
                                         </div>
                                         <div className="flex-1">
                                             <p className="text-xs text-green-600 font-medium">{r.path}</p>

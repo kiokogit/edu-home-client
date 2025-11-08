@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { PlayCircle, Video, FileText, BookOpen, Layout, X, Menu, CheckCircle, Lock, Clock, Download, MessageSquare, Users, Maximize2, ChevronRight, Award, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProctorInstructions from "./AssessmentProctoring";
+import DocumentViewer from "./PDFViewer";
+
 
 export default function StageLessonPage() {
     const stage = {
@@ -108,9 +110,6 @@ export default function StageLessonPage() {
     const [videoProgress, setVideoProgress] = useState(selectedModule.progress || 0);
     const [showCompletionModal, setShowCompletionModal] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [agreeCertification, setAgreeCertification] = useState(false);
-    const [agreeAll, setAgreeAll] = useState(false);
-    const [quizStarted, setQuizStarted] = useState(false);
 
 
     // Simulate video progress
@@ -185,7 +184,7 @@ export default function StageLessonPage() {
                     <span>{stage.progress}% Progress</span>
                 </div>
                 <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 h-1.5 rounded-full transition-all duration-300" style={{width: `${stage.progress}%`}}></div>
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 h-1.5 rounded-full transition-all duration-300" style={{width: `${stage.progress}%`}}></div>
                 </div>
             </div>
 
@@ -461,7 +460,7 @@ export default function StageLessonPage() {
                                         <span className="text-gray-700 dark:text-gray-300">Can you explain event bubbling again?</span>
                                     </div>
                                     <div className="flex gap-2">
-                                        <span className="font-medium text-green-600 dark:text-emerald-400">You:</span>
+                                        <span className="font-medium text-green-600 dark:text-green-400">You:</span>
                                         <span className="text-gray-700 dark:text-gray-300">Sure, events flow from target → parent</span>
                                     </div>
                                     <div className="flex gap-2">
@@ -501,7 +500,7 @@ export default function StageLessonPage() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1 items-end">
-                                    <span className="font-medium text-green-600 dark:text-emerald-400">You</span>
+                                    <span className="font-medium text-green-600 dark:text-green-400">You</span>
                                     <div className="bg-blue-500 text-white rounded-lg p-2 max-w-[80%]">
                                         Sure, events flow from target → parent
                                     </div>
@@ -527,19 +526,6 @@ export default function StageLessonPage() {
                     </div>
                 ) : (
                     <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-                        {/* Video Progress Bar */}
-                        {currentContent?.type === "video" && videoProgress > 0 && videoProgress < 100 && (
-                            <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                                <div className="flex items-center justify-between mb-2 text-sm">
-                                    <span className="font-medium text-blue-900 dark:text-blue-100">Video Progress</span>
-                                    <span className="text-blue-700 dark:text-blue-300">{videoProgress}%</span>
-                                </div>
-                                <div className="w-full bg-blue-200 dark:bg-blue-800 rounded-full h-2">
-                                    <div className="bg-blue-600 h-2 rounded-full transition-all duration-300" style={{width: `${videoProgress}%`}}></div>
-                                </div>
-                            </div>
-                        )}
-
                         {/* Content Viewer */}
                         <div className="rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
                             {currentContent?.type === "video" && (
@@ -552,12 +538,7 @@ export default function StageLessonPage() {
                             {currentContent?.type === "pdf" && (
                                 <div className="w-full aspect-video lg:h-[500px] bg-white dark:bg-gray-800 flex items-center justify-center">
                                     <div className="text-center p-8">
-                                        <FileText size={48} className="mx-auto mb-4 text-gray-400" />
-                                        <h3 className="font-semibold mb-2">{currentContent.title}</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">View and download the lesson materials</p>
-                                        <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">
-                                            Open PDF
-                                        </button>
+                                        <DocumentViewer />
                                     </div>
                                 </div>
                             )}

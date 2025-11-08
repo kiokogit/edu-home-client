@@ -241,7 +241,7 @@ export default function WebDevPathDetails() {
                     <div className="flex items-center gap-3">
                       {/* status icon */}
                       {stage.purchased ? (
-                        <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white text-sm">✓</div>
+                        <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-sm">✓</div>
                       ) : stage === path.stages[1] ? (
                         <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900">▶</div>
                       ) : (
@@ -260,7 +260,7 @@ export default function WebDevPathDetails() {
                   <div className="flex items-start gap-3">
                     {/* price or enrolled badge */}
                     {stage.purchased ? (
-                      <div className="text-xs text-emerald-600 font-medium bg-emerald-50 px-3 py-1 rounded-md">Purchased</div>
+                      <div className="text-xs text-green-600 font-medium bg-green-50 px-3 py-1 rounded-md">Purchased</div>
                     ) : (
                       <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">KES {stage.priceKES}</div>
                     )}
@@ -302,7 +302,7 @@ export default function WebDevPathDetails() {
                         <div key={m.id} className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {m.done ? (
-                              <Check size={16} className="text-emerald-600" />
+                              <Check size={16} className="text-green-600" />
                             ) : isCurrent ? (
                               <div style={{ animation: 'softPulse 1.6s ease-in-out infinite' }} className="w-4 h-4 rounded-full bg-yellow-400 flex items-center justify-center text-[10px]">▶</div>
                             ) : (

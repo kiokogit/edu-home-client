@@ -219,11 +219,39 @@ export default function QuizAssessment() {
     if (showResults) {
         const results = calculateResults();
         
+        function fullScreenExit(): void {
+            if (typeof document === "undefined") return;
+
+            const doc: any = document;
+
+            // If any fullscreen element is active, try to exit fullscreen using the appropriate API
+            if (doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement) {
+            const exit =
+                doc.exitFullscreen ||
+                doc.webkitExitFullscreen ||
+                doc.mozCancelFullScreen ||
+                doc.msExitFullscreen;
+
+            if (typeof exit === "function") {
+                try {
+                const result = exit.call(document);
+                // handle promise-based exitFullscreen in modern browsers
+                if (result && typeof result.then === "function") {
+                    result.catch(() => {
+                    /* ignore errors on exit */
+                    });
+                }
+                } catch {
+                // swallow errors (best-effort exit)
+                }
+            }
+            }
+        }
         return (
             <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-2 lg:p-4">
                 <div className="max-w-4xl mx-auto">
                     {/* Results Header */}
-                    <div className={`rounded-lg p-4 lg:p-6 mb-3 text-center ${results.passed ? 'bg-gradient-to-r from-green-500 to-emerald-600' : 'bg-gradient-to-r from-orange-500 to-red-600'} text-white shadow-md`}>
+                    <div className={`rounded-lg p-4 lg:p-6 mb-3 text-center ${results.passed ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-orange-500 to-red-600'} text-white shadow-md`}>
                         <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
                             {results.passed ? (
                                 <Award size={48} className="text-white" />
@@ -286,7 +314,7 @@ export default function QuizAssessment() {
 
                         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
                             <div 
-                                className={`h-4 rounded-full transition-all duration-1000 ${results.passed ? 'bg-gradient-to-r from-green-500 to-emerald-600' : 'bg-gradient-to-r from-orange-500 to-red-600'}`}
+                                className={`h-4 rounded-full transition-all duration-1000 ${results.passed ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-orange-500 to-red-600'}`}
                                 style={{ width: `${results.percentage}%` }}
                             />
                         </div>
@@ -376,10 +404,13 @@ export default function QuizAssessment() {
                             Retake Quiz
                         </button>
                         <button
-                            onClick={() => router.replace(`/student/catalog/${quiz.id}/learning/${quiz.id}`)}
+                            onClick={() => {
+                                fullScreenExit()
+                                router.back()
+                            }}
                             className="flex-1 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold"
                         >
-                            Back to Course
+                            Close
                         </button>
                     </div>
                 </div>
@@ -538,7 +569,7 @@ export default function QuizAssessment() {
                     {currentQuestionIndex === totalQuestions - 1 ? (
                         <button
                             onClick={handleSubmitQuiz}
-                            className="flex-1 sm:flex-none px-2 py-1 text-sm bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-sm font-semibold transition-all shadow-sm flex items-center justify-center gap-2"
+                            className="flex-1 sm:flex-none px-2 py-1 text-sm bg-gradient-to-r from-green-600 to-green-600 hover:from-green-700 hover:to-green-700 text-white rounded-sm font-semibold transition-all shadow-sm flex items-center justify-center gap-2"
                         >
                             <Award size={15} />
                             Finish Quiz

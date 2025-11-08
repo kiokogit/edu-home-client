@@ -324,7 +324,7 @@ export default function WelcomeDashboardContent() {
                                                     </div>
                                                     <div className="w-full bg-gray-200 rounded-full h-2">
                                                         <div
-                                                            className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all"
+                                                            className="bg-gradient-to-r from-green-500 to-green-500 h-2 rounded-full transition-all"
                                                             style={{ width: `${j.progress}%` }}
                                                         />
                                                     </div>
@@ -528,14 +528,14 @@ export default function WelcomeDashboardContent() {
                             {isMinor ? (
                                 <button
                                     onClick={handleSendGuardianRequest}
-                                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold shadow-md hover:shadow-md transition-all hover:scale-[1.02]"
+                                    className="w-full bg-gradient-to-r from-green-600 to-green-600 text-white py-4 rounded-xl font-bold shadow-md hover:shadow-md transition-all hover:scale-[1.02]"
                                 >
                                     Send Guardian Request
                                 </button>
                             ) : (
                                 <button
                                     onClick={handleBuy}
-                                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold shadow-md hover:shadow-md transition-all hover:scale-[1.02]"
+                                    className="w-full bg-gradient-to-r from-green-600 to-green-600 text-white py-4 rounded-xl font-bold shadow-md hover:shadow-md transition-all hover:scale-[1.02]"
                                 > Proceed to Payment</button>)}
                         </div>
                     </div>

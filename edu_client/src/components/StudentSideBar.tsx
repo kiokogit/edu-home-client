@@ -48,20 +48,12 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
             <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Vincent Kioko</h2>
             <p className="text-sm text-gray-500 dark:text-gray-300">student.email@email.com</p>
           </div>
-
-          {/* Profile Quick Menu
-          <div className="absolute text-left top-full left-0 mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-lg w-44 py-2 z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all">
-            <Link href="/student/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">View Profile</Link>
-            <Link href="/student/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</Link>
-          </div> */}
         </div>
 
         <nav className="flex-1 space-y-2 w-full">
           <NavItem href="/student/dashboard" icon={<Home className="h-5 w-5" />} label="Dashboard" collapsed={collapsed} />
-          <NavItem href="/student/schedule" icon={<Calendar className="h-5 w-5" />} label="Schedule" collapsed={collapsed} />
-          <NavItem href="/student/live" icon={<Video className="h-5 w-5" />} label="Live Classes" collapsed={collapsed} />
           <NavItem href="/student/catalog" icon={<BookCheck className="h-5 w-5" />} label="Catalogue" collapsed={collapsed} />
-          <NavItem href="/student/sandbox" icon={<CodeIcon className="h-5 w-5" />} label="Sandbox" collapsed={collapsed} />
+          <NavItem href="/student/challenges" icon={<CodeIcon className="h-5 w-5" />} label="Challenges" collapsed={collapsed} />
           <NavItem href="/student/help" icon={<HelpCircle className="h-5 w-5" />} label="Help & Support" collapsed={collapsed} />
         </nav>
 
@@ -120,7 +112,7 @@ function NavItem({ icon, label, href, collapsed }: any) {
       {!collapsed && <span className="transition-opacity duration-300">{label}</span>}
 
       {collapsed && (
-        <span className="absolute left-full ml-3 whitespace-nowrap bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+        <span className="absolute z-20 left-full ml-3 whitespace-nowrap bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
           {label}
         </span>
       )}
