@@ -1,11 +1,9 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle, XCircle, ChevronLeft, ChevronRight, Flag, Award, Clock, AlertCircle, TrendingUp, BookOpen } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 export default function QuizAssessment() {
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const quiz = {
         id: "quiz-1",
@@ -101,7 +99,7 @@ export default function QuizAssessment() {
     };
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState({});
+    const [answers, setAnswers] = useState<Record<string, any>>({});
     const [showResults, setShowResults] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimit * 60); // in seconds
     const [flaggedQuestions, setFlaggedQuestions] = useState(new Set());
@@ -128,13 +126,13 @@ export default function QuizAssessment() {
         return () => clearInterval(timer);
     }, [showResults]);
 
-    const formatTime = (seconds) => {
+    const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
-    const handleAnswer = (answer) => {
+    const handleAnswer = (answer: any) => {
         setAnswers(prev => ({
             ...prev,
             [currentQuestion.id]: answer
@@ -165,7 +163,7 @@ export default function QuizAssessment() {
         }
     };
 
-    const checkAnswer = (question, userAnswer) => {
+    const checkAnswer = (question: any, userAnswer: any) => {
         if (userAnswer === undefined || userAnswer === null || userAnswer === '') return false;
 
         if (question.type === 'multiple-choice') {
@@ -179,7 +177,7 @@ export default function QuizAssessment() {
             if (normalizedAnswer === correctNormalized) return true;
             
             if (question.alternateAnswers) {
-                return question.alternateAnswers.some(alt => 
+                return question.alternateAnswers.some((alt: string) => 
                     alt.toLowerCase().trim() === normalizedAnswer
                 );
             }
@@ -346,7 +344,7 @@ export default function QuizAssessment() {
                                                 {question.type === 'multiple-choice' && (
                                                     <div className="space-y-1 text-sm">
                                                         <p className="text-gray-700 dark:text-gray-300">
-                                                            <span className="font-medium">Your answer:</span> {userAnswer !== undefined ? question.options[userAnswer] : 'Not answered'}
+                                                            <span className="font-medium">Your answer:</span> {userAnswer !== undefined ? question.options?.[userAnswer] : 'Not answered'}
                                                         </p>
                                                         {!isCorrect && (
                                                             <p className="text-green-700 dark:text-green-300">
@@ -406,7 +404,7 @@ export default function QuizAssessment() {
                         <button
                             onClick={() => {
                                 fullScreenExit()
-                                router.back()
+                                navigate(-1)
                             }}
                             className="flex-1 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold"
                         >
@@ -481,7 +479,7 @@ export default function QuizAssessment() {
                     {/* Multiple Choice */}
                     {currentQuestion.type === 'multiple-choice' && (
                         <div className="space-y-2">
-                            {currentQuestion.options.map((option, index) => (
+                            {currentQuestion.options?.map((option: string, index: number) => (
                                 <button
                                     key={index}
                                     onClick={() => handleAnswer(index)}

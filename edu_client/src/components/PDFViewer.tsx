@@ -1,4 +1,3 @@
-"use client";
 import DocViewer, { PDFRenderer, PNGRenderer, TXTRenderer, HTMLRenderer} from "react-doc-viewer";
 
 function DocumentViewer() {

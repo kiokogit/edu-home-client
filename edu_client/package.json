@@ -3,25 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.8.0",
+    "@fusionauth/react-sdk": "^2.5.1",
     "axios": "^1.12.2",
     "dayjs": "^1.11.18",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.542.0",
-    "next": "15.5.2",
-    "next-auth": "^4.24.11",
-    "next-pwa": "^5.6.0",
     "react": "19.1.0",
     "react-doc-viewer": "^0.1.15",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-pdf": "^10.2.0",
+    "react-router-dom": "^6.22.3",
     "react-swipeable": "^7.0.2",
     "workbox-expiration": "^7.3.0",
     "workbox-recipes": "^7.3.0",
@@ -31,16 +30,16 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@netlify/next": "^1.4.9",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5",
+    "vite": "^5.2.0",
+    "vite-tsconfig-paths": "^4.3.2"
   }
 }

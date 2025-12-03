@@ -1,5 +1,12 @@
 import { create } from 'zustand'
 
+interface LoaderState {
+  loading: boolean
+  message?: string
+  showLoader: (msg?: string) => void
+  hideLoader: () => void
+}
+
 export const useLoaderStore = create<LoaderState>((set) => ({
   loading: false,
   message: undefined,

@@ -1,6 +1,5 @@
-'use client';
 import QuizAssessmentComponent from "@/components/TakeAssessmentComponent";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Camera, Monitor, AlertTriangle, CheckCircle } from "lucide-react";
 
 const QuizAssessment = () => (
@@ -187,8 +186,8 @@ const ProctoredQuizPage = () => {
 };
 
 const PermissionSetup = ({ onPermissionsGranted }) => {
-  const [cameraStatus, setCameraStatus] = useState('pending');
-  const [screenStatus, setScreenStatus] = useState('pending');
+  const [cameraStatus, setCameraStatus] = useState(onPermissionsGranted.cameraStatus);
+  const [screenStatus, setScreenStatus] = useState(onPermissionsGranted.screenStatus);
   const [error, setError] = useState('');
   const videoRef = useRef(null);
 

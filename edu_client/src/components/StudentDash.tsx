@@ -1,139 +1,83 @@
-'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-    BookOpen,
-    Code,
-    Cpu,
-    Gamepad,
     Users,
-    Star,
     ArrowRight,
     Gift,
     PlusCircle,
-    PenTool,
-    BarChart3,
     Bot,
-    ShieldCheck,
     Network,
-    Cloud,
-    Terminal,
     CheckCircle,
     Clock,
-    Sparkles
+    Sparkles,
+    Hammer,
+    Wrench,
+    Camera,
+    Scissors,
+    Code
 } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export default function WelcomeDashboardContent() {
     const journeys = [
         {
-            id: 'basic-coding',
-            title: 'Elements of Programming',
-            summary: 'Age-tailored fundamentals: logic, Scratch, block-based and text basics',
+            id: 'plumbing-basics',
+            title: 'Home Plumbing Basics',
+            summary: 'Master the wrench. Fix leaks, install faucets, and understand home water systems.',
+            icon: Wrench,
+            image: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
+            status: 'new',
+            progress: 0,
+            stages: ['Tools & Safety', 'Pipe Types', 'Fixing Leaks', 'Installations', 'Final Project']
+        },
+        {
+            id: 'robotics-101',
+            title: 'Robotics & Automation',
+            summary: 'Build your first robot. Learn Arduino, sensors, and basic mechanics.',
+            icon: Bot,
+            image: 'https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80',
+            status: 'in-progress',
+            progress: 35,
+            stages: ['Circuits 101', 'Arduino Basics', 'Sensors & Motors', 'Coding Logic', 'Robot Build']
+        },
+        {
+            id: 'creative-carpentry',
+            title: 'Creative Carpentry',
+            summary: 'Woodworking for beginners. Build furniture, birdhouses, and art.',
+            icon: Hammer,
+            image: 'https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=600&q=80',
+            status: 'new',
+            progress: 0,
+            stages: ['Wood Types', 'Measuring & Cutting', 'Joinery', 'Finishing', 'Furniture Project']
+        },
+        {
+            id: 'python-coding',
+            title: 'Python for Real World',
+            summary: 'Automate tasks, analyze data, and build scripts with Python.',
             icon: Code,
-            image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Intro & Logic', 'Blocks & Scratch', 'Intro to Python', 'Mini Projects', 'Assessment']
-        },
-        {
-            id: 'web-dev',
-            title: 'Web Development',
-            summary: 'HTML → CSS → JavaScript → Frameworks → Deployments',
-            icon: BookOpen,
-            image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['HTML Fundamentals', 'CSS & Layouts', 'JS & DOM', 'React / Frameworks', 'Deploy & Portfolio']
-        },
-        {
-            id: 'ai-ml',
-            title: 'AI & Machine Learning',
-            summary: 'Start from data & algorithms, progress to models and inference',
-            icon: Cpu,
-            image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Math & Python', 'Data Wrangling', 'ML Basics', 'Deep Learning', 'Projects & Ethics']
-        },
-        {
-            id: 'game-dev',
-            title: 'Gaming & Game Development',
-            summary: 'Design, code, and publish games across platforms',
-            icon: Gamepad,
-            image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&q=80',
+            image: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=80',
             status: 'completed',
             progress: 100,
-            stages: ['Game Design', '2D Engines', '3D Basics', 'Scripting & AI', 'Publish & Iterate']
+            stages: ['Syntax Basics', 'Data Structures', 'File Handling', 'Automation Scripts', 'Final App']
         },
         {
-            id: 'ui-ux',
-            title: 'UI/UX & Product Design',
-            summary: 'Visual design, wireframing, prototyping, usability, and product thinking',
-            icon: PenTool,
-            image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80',
+            id: 'photography-mastery',
+            title: 'Photography Mastery',
+            summary: 'Capture the world. Learn composition, lighting, and editing.',
+            icon: Camera,
+            image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
             status: 'new',
             progress: 0,
-            stages: ['Design Principles', 'Wireframes', 'Hi-Fi Design', 'Prototyping', 'User Testing & Case Study']
+            stages: ['Camera Basics', 'Composition Rules', 'Lighting', 'Photo Editing', 'Portfolio']
         },
         {
-            id: 'data-science',
-            title: 'Data Science & Analytics',
-            summary: 'Collect, analyze, visualize, and interpret data for business decisions',
-            icon: BarChart3,
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80',
+            id: 'fashion-design',
+            title: 'Fashion & Tailoring',
+            summary: 'Design and sew your own clothes. From sketching to stitching.',
+            icon: Scissors,
+            image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80',
             status: 'new',
             progress: 0,
-            stages: ['Python & Excel', 'Data Cleaning', 'Analytics & BI Tools', 'Dashboards', 'Case Studies']
-        },
-        {
-            id: 'robotics',
-            title: 'Robotics & Automation',
-            summary: 'Hands-on robotics logic, microcontrollers, sensors and real-world automation',
-            icon: Bot,
-            image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Circuits & Sensors', 'Arduino / Micro:Bit', 'Movement & Logic', 'Autonomous Behavior', 'Project Build']
-        },
-        {
-            id: 'cyber-security',
-            title: 'Cyber Security & Ethical Hacking',
-            summary: 'Security foundations, network defense, ethical hacking workflows',
-            icon: ShieldCheck,
-            image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Networking Basics', 'OS Security', 'Threat Analysis', 'Ethical Hacking Tools', 'Secure Systems']
-        },
-        {
-            id: 'system-admin',
-            title: 'System Administration & Networking',
-            summary: 'Manage operating systems, networks, infrastructure, and enterprise systems',
-            icon: Network,
-            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Linux & Windows Admin', 'Networking Essentials', 'User & Access Control', 'Monitoring & Logs', 'Deploy & Maintain']
-        },
-        {
-            id: 'cloud-devops',
-            title: 'Cloud Computing & DevOps',
-            summary: 'Infrastructure automation, containerization, CI/CD & cloud operations',
-            icon: Cloud,
-            image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Linux & Terminal', 'Cloud Providers', 'Containers (Docker)', 'CI/CD Pipelines', 'Deploy & Scale']
-        },
-        {
-            id: 'linux-fundamentals',
-            title: 'Linux Command Line & Scripting',
-            summary: 'Master file systems, permissions, processes + automation with Bash',
-            icon: Terminal,
-            image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&q=80',
-            status: 'new',
-            progress: 0,
-            stages: ['Shell Basics', 'Permissions & Users', 'Processes & Services', 'Shell Scripting', 'Automations']
+            stages: ['Fabric Science', 'Sketching', 'Sewing Machine', 'Pattern Making', 'Garment Construction']
         }
     ];
 
@@ -144,8 +88,8 @@ export default function WelcomeDashboardContent() {
     const SUB_ANNUAL = 250;
 
     const [selectedJourney, setSelectedJourney] = useState(journeys[0]);
-    const [paymentChoice, setPaymentChoice] = useState(null);
-    const [subscriptionPlan, setSubscriptionPlan] = useState(null);
+    const [paymentChoice, setPaymentChoice] = useState<'course' | 'module' | 'path' | 'subscription' | null>(null);
+    const [subscriptionPlan, setSubscriptionPlan] = useState<'monthly' | 'annual' | null>(null);
     const [selfPaced, setSelfPaced] = useState(true);
     const [isMinor, setIsMinor] = useState(false);
     const [guardianContact, setGuardianContact] = useState({ name: '', email: '', phone: '' });
@@ -186,10 +130,10 @@ export default function WelcomeDashboardContent() {
         }
     }
 
-    const getStatusBadge = (status, progress) => {
+    const getStatusBadge = (status: string, progress: number) => {
         if (status === 'completed') {
             return (
-                <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-medium border border-emerald-200">
                     <CheckCircle size={14} />
                     Completed
                 </span>
@@ -197,14 +141,14 @@ export default function WelcomeDashboardContent() {
         }
         if (status === 'in-progress') {
             return (
-                <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
+                <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium border border-blue-200">
                     <Clock size={14} />
                     {progress}% Complete
                 </span>
             );
         }
         return (
-            <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
+            <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium border border-purple-200">
                 <Sparkles size={14} />
                 New
             </span>
@@ -214,41 +158,47 @@ export default function WelcomeDashboardContent() {
     return (
         <main className="min-h-screen p-2 md:p-4">
             {/* Hero Section */}
-            <section className="bg-opacity-50 bg-green-800 rounded-lg mb-8 overflow-hidden shadow-2xl">
-                <div className="flex flex-col lg:flex-row items-center gap-8 p-8 md:p-12">
-                    <div className="flex-1 text-white">
-                        <h1 className="text-xl md:text-3xl font-extrabold mb-4">
-                            Welcome to MyPath 🎉
-                        </h1>
-                        <p className="text-md md:text-lg text-green-50 mb-6 leading-relaxed">
-                            Your personalized learning journey starts here. Choose from 11+ professional tracks and start building your future today.
+            <section className="relative rounded-3xl mb-8 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 to-slate-900" />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
+                
+                <div className="relative flex flex-col lg:flex-row items-center gap-12 p-8 md:p-12">
+                    <div className="flex-1 text-white space-y-6">
+                        <div>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
+                                <Hammer size={12} /> Student Dashboard
+                            </div>
+                            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                                Welcome to EduCraft
+                            </h1>
+                        </div>
+                        <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
+                            Ready to build something real? Pick up a tool, write some code, or design your future. Your craft journey continues here.
                         </p>
 
-                        <div className="flex flex-wrap gap-3 mb-6">
-                            <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-                                💎 Course: ${PRICE_PER_COURSE}
+                        <div className="flex flex-wrap gap-3">
+                            <div className="bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl text-sm font-medium">
+                                � Course: ${PRICE_PER_COURSE}
                             </div>
-                            <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-                                📚 Module: ${PRICE_PER_MODULE}
-                            </div>
-                            <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+                            <div className="bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl text-sm font-medium">
                                 🚀 Full Path: ${PRICE_PER_PATH}
                             </div>
-                            <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-                                ⭐ Monthly: ${SUB_MONTHLY}
+                            <div className="bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-4 py-2 rounded-xl text-sm font-medium">
+                                ⭐ Premium: ${SUB_MONTHLY}/mo
                             </div>
                         </div>
 
-                        <button className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-md transition-all hover:scale-105">
-                            Start Your Journey
+                        <button className="bg-emerald-500 text-slate-900 px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-emerald-500/20 hover:bg-emerald-400 hover:scale-105 transition-all">
+                            Resume Learning
                         </button>
                     </div>
 
-                    <div className="w-full lg:w-1/2 flex-shrink-0">
+                    <div className="w-full lg:w-5/12 flex-shrink-0 relative">
+                        <div className="absolute -inset-4 bg-emerald-500/20 blur-2xl rounded-full" />
                         <img
-                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
-                            alt="Students learning together"
-                            className="w-full h-80 object-cover rounded-lg shadow-2xl"
+                            src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
+                            alt="Student working"
+                            className="relative w-full aspect-video object-cover rounded-2xl shadow-2xl border border-white/10"
                         />
                     </div>
                 </div>
@@ -262,7 +212,7 @@ export default function WelcomeDashboardContent() {
                         <div className="flex items-center justify-between mb-6">
                             <div className='w-full'>
                                 <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white mb-2 flex flex-row justify-between">
-                                    Choose Your Learning Path <Link href='/student/catalog' className='text-xs md:text-md text-green-600 hover:underline cursor-pointer'>View Full Catalogue</Link>
+                                    Choose Your Learning Path <Link to='/student/catalog' className='text-xs md:text-md text-green-600 hover:underline cursor-pointer'>View Full Catalogue</Link>
                                 </h2>
                                 <p className="text-gray-600 text-sm dark:text-gray-300">
                                     Select from our curated learning journeys. Each path is designed to take you from beginner to expert.

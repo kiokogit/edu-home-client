@@ -1,14 +1,11 @@
 import axios from "axios"
-import { getSession } from "next-auth/react"
 import { loaderStore } from "@/stores/genericStores"
-
-let cachedAccessToken: string | null = null
-let lastFetchedAt: number | null = null
+import { getFusionAuthToken, clearFusionAuthData } from "./fusionauth-utils"
 
 const axiosInstance = axios.create({
   baseURL:
-    `${process.env.NEXT_PUBLIC_DJANGO_API_URL || "http://localhost:8000"}` +
-    `/${process.env.NEXT_PUBLIC_API_VERSION}`,
+    `${import.meta.env.VITE_DJANGO_API_URL || "http://localhost:8000"}` +
+    `/${import.meta.env.VITE_API_VERSION || "api/v1"}`,
   headers: { "Content-Type": "application/json" },
 })
 
@@ -20,18 +17,11 @@ axiosInstance.interceptors.request.use(async (config) => {
   if (activeRequests === 0) loaderStore.show("Please wait...")
   activeRequests++
 
-  const shouldRefresh =
-    !cachedAccessToken ||
-    (lastFetchedAt && Date.now() - lastFetchedAt > 15 * 60 * 1000)
-
-  if (shouldRefresh) {
-    const session = await getSession()
-    cachedAccessToken = (session as any)?.access_token || null
-    lastFetchedAt = Date.now()
-  }
-
-  if (cachedAccessToken) {
-    config.headers.Authorization = `Bearer ${cachedAccessToken}`
+  // Get FusionAuth access token
+  const accessToken = getFusionAuthToken()
+  
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`
   }
 
   return config
@@ -48,8 +38,9 @@ axiosInstance.interceptors.response.use(
     if (activeRequests === 0) loaderStore.hide()
 
     if (error.response?.status === 401 || error.response?.status === 403) {
-      cachedAccessToken = null
-      // await signOut()
+      // Clear FusionAuth data and redirect to login
+      clearFusionAuthData()
+      window.location.href = '/'
     }
 
     return Promise.reject(error)

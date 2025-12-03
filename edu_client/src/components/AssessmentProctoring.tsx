@@ -1,13 +1,12 @@
 
-'use client';
-import React, { useState } from "react";
+import { useState } from "react";
 import { Camera, Monitor, AlertTriangle, Eye, Lock, FileText } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 
 const ProctorInstructions = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-    const router = useRouter();
+    const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="pl-6 pr-6 pb-6 w-full">
@@ -132,7 +131,7 @@ const ProctorInstructions = () => {
 
           {/* Start Button */}
           <button
-            onClick={() => { router.push('/student/catalog/dummy_path-id/learning/course-id-real/quiz/test-id-here'); }}
+            onClick={() => { navigate('/student/catalog/dummy_path-id/learning/course-id-real/quiz/test-id-here'); }}
             disabled={!acceptedTerms}
             className={`w-fit px-4 py-4 rounded-md font-semibold text-lg transition-all ${
               acceptedTerms

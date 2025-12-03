@@ -1,27 +1,28 @@
-'use client';
-
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useUserInfo } from '@/hooks/useUserInfo';
+import { useHeaderTitle } from '@/contexts/HeaderTitleContext';
 import {
   Home,
-  Calendar,
   BookCheck,
-  Video,
-  ClipboardList,
-  Settings,
   HelpCircle,
   Star,
   Bell,
   Menu,
   LogOut,
-  CodeIcon
+  CodeIcon,
+  Hammer
 } from 'lucide-react';
 
 export default function StudentDashboardNav({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const { user, startLogout } = useUserInfo();
+  const { title } = useHeaderTitle();
+
+  const displayName = user.fullName;
+  const userEmail = user.email;
+  const userAvatar = user.avatar;
 
   return (
     <div className="flex h-screen w-full bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -29,24 +30,34 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
       {/* Sidebar */}
       <aside
         className={`hidden md:flex flex-col border-r border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 
-        ${collapsed ? 'w-20 bg-green-600 text-white' : 'w-56 bg-white dark:bg-gray-800'} p-4`}
+        ${collapsed ? 'w-20 bg-emerald-600 text-white' : 'w-64 bg-white dark:bg-gray-800'} p-4`}
       >
-        {/* Collapse Toggle */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className={`flex items-center justify-center mb-6 p-2 rounded-lg hover:bg-green-700 transition ${collapsed ? 'text-white' : 'text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700'}`}
-        >
-          <Menu size={20} />
-        </button>
+        {/* Brand & Toggle */}
+        <div className="flex items-center justify-between mb-8">
+            {!collapsed && (
+                <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white shadow-lg">
+                        <Hammer size={18} />
+                    </div>
+                    <span className="font-bold text-xl text-slate-900 dark:text-white tracking-tight">EduCraft</span>
+                </div>
+            )}
+            <button
+                onClick={() => setCollapsed(!collapsed)}
+                className={`p-2 rounded-lg hover:bg-emerald-500/10 hover:text-emerald-500 transition ${collapsed ? 'mx-auto text-white hover:bg-white/20 hover:text-white' : 'text-gray-500 dark:text-gray-400'}`}
+            >
+                <Menu size={20} />
+            </button>
+        </div>
 
         <div className="group flex flex-col items-center text-center mb-8 relative">
           <button className={`relative overflow-hidden rounded-full shadow-md transition-all duration-300 ${collapsed ? 'w-12 h-12' : 'w-20 h-20'} hover:rotate-3 hover:scale-105 ring-2 ring-transparent hover:ring-yellow-500`}>
-            <Image src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&q=80" alt="User Avatar" fill className="object-cover" />
+            <img src={userAvatar} alt="User Avatar" className="object-cover w-full h-full" />
           </button>
 
           <div className={`flex flex-col items-center transition-opacity duration-300 ${collapsed ? 'opacity-0 pointer-events-none h-0' : 'opacity-100 h-auto'}`}>
-            <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Vincent Kioko</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-300">student.email@email.com</p>
+            <h2 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">{displayName}</h2>
+            {userEmail && <p className="text-sm text-gray-500 dark:text-gray-300">{userEmail}</p>}
           </div>
         </div>
 
@@ -60,7 +71,10 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
         {/* Logout */}
         <button
           className={`flex items-center gap-3 mt-6 text-sm font-medium transition ${collapsed ? 'justify-center text-white' : 'text-red-600 hover:text-red-700'}`}
-          onClick={() => router.replace('/')}
+          onClick={() => {
+            startLogout();
+            navigate('/');
+          }}
         >
           <LogOut size={18} />
           {!collapsed && <span>Log Out</span>}
@@ -72,7 +86,7 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
         <header className="flex items-center justify-between shadow-md bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
           <div className="flex items-center gap-3">
             <button className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700"><Menu /></button>
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h1>
           </div>
 
           <div className="flex items-center gap-4">
@@ -93,15 +107,14 @@ export default function StudentDashboardNav({ children }: { children: React.Reac
   );
 }
 
-import { usePathname } from 'next/navigation';
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function NavItem({ icon, label, href, collapsed }: any) {
-  const pathname = usePathname();
-  const active = pathname === href;
+  const location = useLocation();
+  const active = location.pathname === href;
 
   return (
     <Link
-      href={href}
+      to={href}
       className={`relative group flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors
         ${collapsed
           ? `justify-center text-white hover:bg-green-700 ${active ? 'bg-green-700 shadow-inner' : ''}`

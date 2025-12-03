@@ -1,110 +1,122 @@
-"use client";
 import { useState, useMemo } from "react";
-import { Search, Star, CheckCircle, ArrowRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Search, Star, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useHeaderTitle } from "@/contexts/HeaderTitleContext";
 
 export default function LearningPathsCatalog() {
     const paths = [
-  {
-    id: "game-development",
-    title: "Game Development Learning Path",
-    image: "https://cdn-icons-png.flaticon.com/512/1048/1048946.png",
-    summary: "Design & build 2D and 3D games — from mechanics to scripting, AI & publishing.",
-    category: "Game Development",
-    stagesCount: 5,
-    totalModules: 16,
-    includesCertificate: true,
-    priceKES: 3500,
-    isPremiumIncluded: false,
-
-    stages: [
-      {
-        id: "s1",
-        title: "Game Design",
-        status: "completed",
-        purchased: true,
-        resources: 4,
-        assignments: 2,
-        projects: 1,
-        sandbox: 1,
-        modules: [
-          { id: "m1", title: "What is a Game?", done: true },
-          { id: "m2", title: "Game Loops", done: true },
-          { id: "m3", title: "Character vs Player", done: true }
-        ]
-      },
-
-      {
-        id: "s2",
-        title: "2D Game Engines",
-        status: "completed",
-        purchased: true,
-        resources: 4,
-        assignments: 2,
-        projects: 1,
-        sandbox: 1,
-        modules: [
-          { id: "m1", title: "Sprites & Assets", done: true },
-          { id: "m2", title: "Scene & World", done: true }
-        ]
-      },
-
-      {
-        id: "s3",
-        title: "3D Basics & Unity",
-        status: "current",
-        progress: 45,
-        purchased: true,
-        resources: 3,
-        assignments: 8,
-        projects: 1,
-        sandbox: 1,
-        modules: [
-          { id: "m1", title: "Unity Interface", done: true },
-          { id: "m2", title: "3D Transformations", done: false, is_current: true },
-          { id: "m3", title: "Prefabs & Scenes", done: false }
-        ]
-      },
-
-      {
-        id: "s4",
-        title: "Scripting & Game AI",
-        status: "upcoming",
-        purchased: false,
-        priceKES: 1500,
-        resources: 4,
-        assignments: 2,
-        projects: 0,
-        sandbox: 1,
-        modules: [
-          { id: "m1", title: "Internal Scripting", done: false },
-          { id: "m2", title: "Command Issuance", done: false },
-          { id: "m3", title: "Strategy & Design", done: false },
-          { id: "m4", title: "Designing For Life", done: false }
-        ]
-      },
-
-      {
-        id: "s5",
-        title: "Publish & Iterate",
-        status: "upcoming",
-        purchased: false,
+    // Tech & Robotics
+    {
+        id: "robotics-101",
+        title: "Robotics & Automation",
+        image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80",
+        summary: "Build your first robot. Learn Arduino, sensors, and basic mechanics.",
+        category: "Tech & Robotics",
+        stagesCount: 5,
+        totalModules: 20,
+        includesCertificate: true,
+        priceKES: 4500,
+        isPremiumIncluded: true,
+        stages: []
+    },
+    {
+        id: "python-coding",
+        title: "Python for Real World",
+        image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=80",
+        summary: "Automate tasks, analyze data, and build scripts with Python.",
+        category: "Tech & Robotics",
+        stagesCount: 5,
+        totalModules: 15,
+        includesCertificate: true,
+        priceKES: 3500,
+        isPremiumIncluded: true,
+        stages: []
+    },
+    // Handiwork & Trade
+    {
+        id: "plumbing-basics",
+        title: "Home Plumbing Basics",
+        image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80",
+        summary: "Master the wrench. Fix leaks, install faucets, and understand home water systems.",
+        category: "Handiwork & Trade",
+        stagesCount: 4,
+        totalModules: 12,
+        includesCertificate: true,
+        priceKES: 3000,
+        isPremiumIncluded: false,
+        stages: []
+    },
+    {
+        id: "creative-carpentry",
+        title: "Creative Carpentry",
+        image: "https://images.unsplash.com/photo-1504198458649-3128b932f49e?w=600&q=80",
+        summary: "Woodworking for beginners. Build furniture, birdhouses, and art.",
+        category: "Handiwork & Trade",
+        stagesCount: 6,
+        totalModules: 18,
+        includesCertificate: true,
+        priceKES: 5000,
+        isPremiumIncluded: false,
+        stages: []
+    },
+    // Creative Arts
+    {
+        id: "photography-mastery",
+        title: "Photography Mastery",
+        image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80",
+        summary: "Capture the world. Learn composition, lighting, and editing.",
+        category: "Creative Arts",
+        stagesCount: 5,
+        totalModules: 15,
+        includesCertificate: true,
+        priceKES: 4000,
+        isPremiumIncluded: true,
+        stages: []
+    },
+    {
+        id: "fashion-design",
+        title: "Fashion & Tailoring",
+        image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80",
+        summary: "Design and sew your own clothes. From sketching to stitching.",
+        category: "Creative Arts",
+        stagesCount: 8,
+        totalModules: 24,
+        includesCertificate: true,
+        priceKES: 6000,
+        isPremiumIncluded: false,
+        stages: []
+    },
+    // Life Skills
+    {
+        id: "public-speaking",
+        title: "Public Speaking & Confidence",
+        image: "https://images.unsplash.com/photo-1475721027767-4d529c14e569?w=600&q=80",
+        summary: "Speak with power. Learn to present ideas and lead crowds.",
+        category: "Life Skills",
+        stagesCount: 3,
+        totalModules: 9,
+        includesCertificate: true,
+        priceKES: 2500,
+        isPremiumIncluded: true,
+        stages: []
+    },
+    {
+        id: "financial-literacy",
+        title: "Financial Literacy for Teens",
+        image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&q=80",
+        summary: "Money smarts. Budgeting, saving, and investing basics.",
+        category: "Life Skills",
+        stagesCount: 4,
+        totalModules: 10,
+        includesCertificate: true,
         priceKES: 2000,
-        resources: 1,
-        assignments: 4,
-        projects: 1,
-        sandbox: 1,
-        modules: [
-          { id: "m1", title: "ZBook Publishing", done: false },
-          { id: "m2", title: "Refine & Improve", done: false }
-        ]
-      }
-    ]
-  }
-];
+        isPremiumIncluded: true,
+        stages: []
+    }
+  ];
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
+  useHeaderTitle("Learning Catalogue");
 
   const categories = ["all", ...new Set(paths.map(p => p.category))];
 
@@ -119,14 +131,6 @@ export default function LearningPathsCatalog() {
   return (
     <div className="min-h-screen px-4 md:px-8 py-8 text-gray-900 dark:text-gray-100">
       
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Browse Learning Paths</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Choose a structured journey — learn step-by-step with guidance.
-        </p>
-      </div>
-
       {/* Search + Filters */}
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center mb-6">
         {/* Search */}
@@ -207,7 +211,7 @@ export default function LearningPathsCatalog() {
                   </span>
                 )}
 
-                <Link href={`/student/catalog/${p.id}`} className="flex items-center gap-1 text-green-600 text-xs font-medium hover:underline">
+                <Link to={`/student/catalog/${p.id}`} className="flex items-center gap-1 text-green-600 text-xs font-medium hover:underline">
                   View Details <ArrowRight size={14} />
                 </Link>
               </div>

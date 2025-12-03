@@ -1,8 +1,7 @@
-"use client";
 
-import React, { useState, useEffect } from "react";
-import { PlayCircle, Video, FileText, BookOpen, Layout, X, Menu, CheckCircle, Lock, Clock, Download, MessageSquare, Users, Maximize2, ChevronRight, Award, Zap } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { PlayCircle, Video, FileText, BookOpen, Layout, X, Menu, CheckCircle, Lock, Download, MessageSquare, Users, Maximize2, ChevronRight, Award, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import ProctorInstructions from "./AssessmentProctoring";
 import DocumentViewer from "./PDFViewer";
 
@@ -155,7 +154,7 @@ export default function StageLessonPage() {
         });
     };
 
-    const router = useRouter();
+    const router = useNavigate();
 
     const ModuleIcon = ({ type }) => {
         switch(type) {
