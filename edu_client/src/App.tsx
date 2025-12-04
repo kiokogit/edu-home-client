@@ -1,33 +1,23 @@
 import { Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
-import ProtectedRoute from './components/ProtectedRoute'
-import StudentLayout from './pages/protected/student/StudentLayout'
-import Dashboard from './pages/protected/student/Dashboard'
-import LessonDetails from './pages/protected/student/LessonDetails'
-import Catalogue from './pages/protected/student/Catalogue'
-import Assessment from './pages/protected/student/Assessment'
-import CatalogueDetails from './pages/protected/student/CatalogueDetails'
-import Challenges from './pages/protected/student/Challenges'
+import Catalogue from './pages/Catalogue'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
-const NotFound = () => <div>404 Not Found</div>
+const NotFound = () => <div className="text-center text-gray-400 text-sm py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center justify-center">404 Not Found</div>
 
 function App() {
+  
   return (
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white font-sans selection:bg-emerald-500/30 ">
+    <Navbar />
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/student" element={<StudentLayout />}>
-           <Route path="dashboard" element={<Dashboard />} />
-           <Route path="catalog" element={<Catalogue />} />
-           <Route path="catalog/:courseId" element={<CatalogueDetails />} />
-           <Route path="catalog/:courseId/learning/:lessonId" element={<LessonDetails />} />
-           <Route path="catalog/:courseId/learning/:lessonId/quiz/:quizId" element={<Assessment />} />
-           <Route path="challenges" element={<Challenges />} />
-           <Route path="challenges/:challengeId" element={<Assessment />} />
-        </Route>
-      </Route>
+      <Route path="/catalog" element={<Catalogue />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    <Footer />
+    </div>
   )
 }
 

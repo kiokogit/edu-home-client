@@ -1,5 +1,4 @@
-import WelcomeDashboardContent from "@/components/StudentDash";
-import StudentDashboardHome from "@/components/StudentSubscDash";
+
 import { useHeaderTitle } from "@/contexts/HeaderTitleContext";
 
 const Dashboard = () => {
@@ -8,7 +7,7 @@ const Dashboard = () => {
     useHeaderTitle("Dashboard");
 
     return <div className="p-4 md:p-8">
-        {!isEnrolled ? <WelcomeDashboardContent /> : <StudentDashboardHome />}
+        Welcome
     </div>
 };
 

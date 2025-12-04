@@ -132,7 +132,7 @@ export default function LearningPathsCatalog() {
     <div className="min-h-screen px-4 md:px-8 py-8 text-gray-900 dark:text-gray-100">
       
       {/* Search + Filters */}
-      <div className="flex flex-col md:flex-row gap-4 items-start md:items-center mb-6">
+      <div className="flex flex-col md:flex-row gap-4 items-start md:items-center mb-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Search */}
         <div className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 w-full md:w-96 shadow-sm">
           <Search size={18} className="text-gray-400" />
@@ -165,7 +165,7 @@ export default function LearningPathsCatalog() {
       </div>
 
       {/* Paths Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {filtered.map(p => (
           <div
             key={p.id}
@@ -221,7 +221,7 @@ export default function LearningPathsCatalog() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center text-gray-400 text-sm py-16">No paths match your search.</div>
+        <div className="text-center text-gray-400 text-sm py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">No paths match your search.</div>
       )}
     </div>
   );

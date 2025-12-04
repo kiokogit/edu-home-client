@@ -1,32 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   BookOpen,
   Sparkles,
-  Menu,
-  Phone,
-  Mail,
   ArrowRight,
   Check,
-  X,
   Wrench,
   Hammer,
   Scissors,
   Camera,
   Code,
   Bot,
-  PenTool,
   Music,
   Gamepad2,
-  Mic,
   Palette,
-  Cpu,
   Users,
   Trophy,
   Star,
-  Zap
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 import { useFusionAuth } from '@fusionauth/react-sdk'
+import Modal from '../components/Modal'
+import { useNavigate } from 'react-router-dom'
 
 const skillCategories = [
   {
@@ -89,117 +82,19 @@ const testimonials = [
   }
 ]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Modal = ({ show, onClose, title, children }: any) => {
-  if (!show) return null
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-xl bg-black/40 animate-in fade-in duration-200" onClick={onClose}>
-      <div
-        className="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl border border-white/20 dark:border-white/10 scale-100 transition-all"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button onClick={onClose} className="absolute top-6 right-6 text-slate-400 hover:text-emerald-500 transition">
-          <X size={24} />
-        </button>
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">{title}</h2>
-        {children}
-      </div>
-    </div>
-  )
-}
 
 export default function LandingPage() {
-  const { isLoggedIn, isFetchingUserInfo, startLogin, startRegister } = useFusionAuth()
+  const { isLoggedIn, startLogin, startRegister } = useFusionAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [showContactModal, setShowContactModal] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/student/dashboard')
-    }
-  }, [isLoggedIn, navigate])
-
-  if (isLoggedIn || isFetchingUserInfo) {
-    return null
-  }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white font-sans selection:bg-emerald-500/30">
+    <div className="">
       
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-slate-200/50 dark:bg-slate-950/70 dark:border-white/5 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-                <Hammer size={20} className="fill-white/20" />
-              </div>
-              <div>
-                <p className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">EduCraft</p>
-                <p className="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">Skills for Life</p>
-              </div>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-1">
-              {['About', 'Catalogue', 'Projects', 'Community'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/5"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-
-            <div className="hidden md:flex items-center gap-4">
-              <button onClick={() => startLogin('landing-nav')} className="text-sm font-semibold text-slate-700 hover:text-emerald-600 dark:text-slate-200 dark:hover:text-emerald-400 transition">
-                Log in
-              </button>
-              <button
-                onClick={() => startRegister('landing-nav')}
-                className="group relative px-6 py-2.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
-              >
-                <span className="relative z-10">Get Started</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
-            </div>
-
-            <button className="md:hidden p-2 text-slate-600 dark:text-slate-300" onClick={() => setMobileMenuOpen((prev) => !prev)}>
-              <Menu />
-            </button>
-          </div>
-        </div>
-        
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-white/10 p-4 space-y-4 shadow-2xl animate-in slide-in-from-top-5">
-            {['About', 'Catalogue', 'Projects', 'Community'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 text-slate-700 dark:text-slate-200 font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100 dark:border-white/5">
-              <button onClick={() => startLogin('mobile')} className="w-full py-3 rounded-xl border border-slate-200 dark:border-white/10 font-semibold">
-                Log in
-              </button>
-              <button onClick={() => startRegister('mobile')} className="w-full py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-500/20">
-                Sign up
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
-
       {/* Hero Section */}
       <header className="relative pt-20 pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-100/40 via-slate-50 to-slate-50 dark:from-emerald-900/20 dark:via-slate-950 dark:to-slate-950 pointer-events-none" />
@@ -221,12 +116,21 @@ export default function LandingPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-              <button 
-                onClick={() => startRegister('hero')}
-                className="h-14 px-8 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-lg shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
-              >
-                Start Learning <ArrowRight size={20} />
-              </button>
+              {isLoggedIn ? (
+                <button 
+                  onClick={() => navigate('/dashboard')}
+                  className="px-8 py-4 text-white rounded-full bg-emerald-500 font-bold hover:bg-emerald-400 transition flex items-center gap-2"
+                >
+                  Resume Learning <ArrowRight size={20} />
+                </button>
+              ) : (
+                <button 
+                  onClick={() => startRegister('hero')}
+                  className="h-14 px-8 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-lg shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
+                >
+                  Start Learning <ArrowRight size={20} />
+                </button>
+              )}
               <button 
                 onClick={() => document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth' })}
                 className="h-14 px-8 rounded-full border border-slate-200 bg-white text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-white font-semibold hover:border-emerald-400 transition-all duration-300"
@@ -384,7 +288,7 @@ export default function LandingPage() {
             {[
               { title: 'Automatic Plant Waterer', author: 'Alex (12)', cat: 'Robotics', img: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=600' },
               { title: 'Hand-carved Chess Set', author: 'Maria (15)', cat: 'Woodworking', img: 'https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=600' },
-              { title: 'Portrait Photography', author: 'James (16)', cat: 'Arts', img: 'https://images.unsplash.com/photo-1554048612-387768052bf7?auto=format&fit=crop&q=80&w=600' }
+              { title: 'Portrait Photography', author: 'James (16)', cat: 'Arts', img: 'https://images.unsplash.com/photo-1488684430052-f2d92fb178c2?auto=format&fit=crop&q=80&w=600' }
             ].map((project) => (
               <div key={project.title} className="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800">
                 <img src={project.img} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -395,32 +299,6 @@ export default function LandingPage() {
                   </span>
                   <h3 className="text-xl font-bold mb-1">{project.title}</h3>
                   <p className="text-sm text-slate-300">by {project.author}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="community" className="py-32 bg-white dark:bg-slate-950">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-16">Community Stories</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-left relative">
-                <div className="absolute -top-6 left-8 w-12 h-12 rounded-full border-4 border-white dark:border-slate-950 overflow-hidden shadow-lg">
-                  <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="mt-4">
-                  <div className="flex gap-1 text-emerald-500 mb-4">
-                    {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 text-lg italic mb-6">"{t.text}"</p>
-                  <div>
-                    <p className="font-bold text-slate-900 dark:text-white">{t.name}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">{t.role}</p>
-                  </div>
                 </div>
               </div>
             ))}
@@ -491,14 +369,14 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <button className="px-8 py-4 rounded-full bg-emerald-500 text-slate-900 font-bold hover:bg-emerald-400 transition">
+              <button onClick={() => navigate('/equipment')} className="px-8 py-4 rounded-full bg-emerald-500 text-slate-900 font-bold hover:bg-emerald-400 transition">
                 Browse Equipment
               </button>
             </div>
             <div className="relative">
               <div className="absolute -inset-4 bg-emerald-500/20 blur-3xl rounded-full" />
               <img 
-                src="https://images.unsplash.com/photo-1581092921461-eab62e97a782?auto=format&fit=crop&q=80&w=1000" 
+                src="https://images.unsplash.com/photo-1619221727146-4b81e8de6109?fm=jpg&auto=format&fit=crop&q=60&w=1000" 
                 alt="Workshop Tools" 
                 className="relative rounded-3xl shadow-2xl border border-white/10"
               />
@@ -506,24 +384,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* Quote Section */}
-      <section className="py-24 bg-emerald-50 dark:bg-emerald-950/30">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="mb-8 text-emerald-500 dark:text-emerald-400 opacity-50">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
-            </svg>
-          </div>
-          <blockquote className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-8">
-            "The next billionaires will be plumbers, electricians and such craftsmen, who cannot be replaced by AI."
-          </blockquote>
-          <cite className="text-lg font-medium text-slate-600 dark:text-slate-400 not-italic">
-            — Jensen Huang, CEO of NVIDIA
-          </cite>
-        </div>
-      </section>
-
+     
       {/* Career Connections */}
       <section className="py-32 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -555,7 +416,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
                 Learning for the <br />
                 <span className="text-emerald-500">Real World.</span>
               </h2>
@@ -590,7 +451,54 @@ export default function LandingPage() {
         </div>
       </section>
 
+
+      {/* Quote Section */}
+      <section className="py-24 bg-emerald-50 dark:bg-emerald-950/30">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="mb-8 text-emerald-500 dark:text-emerald-400 opacity-50">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+          </div>
+          <blockquote className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-tight mb-8">
+            "The next billionaires will be plumbers, electricians and such craftsmen, who cannot be replaced by AI."
+          </blockquote>
+          <cite className="text-lg font-medium text-slate-600 dark:text-slate-400 not-italic">
+            — Jensen Huang, CEO of NVIDIA
+          </cite>
+        </div>
+      </section>
+
+       {/* Testimonials */}
+      <section id="community" className="py-32 bg-white dark:bg-slate-950">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-16">Community Stories</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((t, i) => (
+              <div key={i} className="p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-left relative">
+                <div className="absolute -top-6 left-8 w-12 h-12 rounded-full border-4 border-white dark:border-slate-950 overflow-hidden shadow-lg">
+                  <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="mt-4">
+                  <div className="flex gap-1 text-emerald-500 mb-4">
+                    {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
+                  </div>
+                  <p className="text-slate-700 dark:text-slate-300 text-lg italic mb-6">"{t.text}"</p>
+                  <div>
+                    <p className="font-bold text-slate-900 dark:text-white">{t.name}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
       {/* CTA */}
+      {!isLoggedIn && (
       <section className="py-24 bg-gradient-to-br from-emerald-500 to-cyan-600 text-white text-center">
         <div className="max-w-4xl mx-auto px-4 space-y-8">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Start Your Craft Today.</h2>
@@ -613,50 +521,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-950 text-slate-400 py-16 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-12">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-6 text-white">
-              <Hammer size={24} className="text-emerald-500" />
-              <span className="text-2xl font-bold">EduCraft</span>
-            </div>
-            <p className="max-w-sm mb-8">
-              Empowering the next generation with practical skills, creativity, and the confidence to build their own future.
-            </p>
-            <div className="flex gap-4">
-              {/* Social placeholders */}
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition cursor-pointer"><Mail size={18} /></div>
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition cursor-pointer"><Phone size={18} /></div>
-            </div>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-bold mb-6">Learn</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="hover:text-emerald-400 transition">Coding & Tech</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition">Handiwork</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition">Arts & Design</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition">Life Skills</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-bold mb-6">Company</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="hover:text-emerald-400 transition">About Us</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition">Careers</a></li>
-              <li><a href="#" className="hover:text-emerald-400 transition">Privacy Policy</a></li>
-              <li><button onClick={() => setShowContactModal(true)} className="hover:text-emerald-400 transition">Contact</button></li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-white/5 text-center text-sm">
-          © {new Date().getFullYear()} EduCraft Systems. All rights reserved.
-        </div>
-      </footer>
-
+      )}
       {/* Modals */}
       <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)} title="Welcome Back">
         <div className="space-y-4">
