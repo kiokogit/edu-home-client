@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   BookOpen,
   Sparkles,
@@ -18,7 +18,7 @@ import {
   Star,
 } from 'lucide-react'
 import { useFusionAuth } from '@fusionauth/react-sdk'
-import Modal from '../components/Modal'
+import Modal from '@/components/Modal'
 import { useNavigate } from 'react-router-dom'
 
 const skillCategories = [
@@ -81,8 +81,6 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100'
   }
 ]
-
-
 
 export default function LandingPage() {
   const { isLoggedIn, startLogin, startRegister } = useFusionAuth()

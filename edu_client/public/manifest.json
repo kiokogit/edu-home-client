@@ -1,7 +1,7 @@
 {
   "name": "UniQuad",
   "short_name": "UniQuad",
-  "start_url": "/splash",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#f97316",
