@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
 import { ListingCard } from "@/components/Cards"
-import { listings } from "@/lib/dum_data"
 import { ChevronDown } from "lucide-react"
 import { useEventsStore } from "@/stores/postsStore"
 

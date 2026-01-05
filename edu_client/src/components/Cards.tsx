@@ -9,7 +9,6 @@ import {
   Bookmark,
   User,
   MoreHorizontal,
-  PhoneCallIcon,
 } from 'lucide-react';
 import { BiUpvote } from 'react-icons/bi';
 import moment from 'moment';

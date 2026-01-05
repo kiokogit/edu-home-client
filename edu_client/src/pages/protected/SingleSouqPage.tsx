@@ -1,5 +1,4 @@
 import { ActionButtons } from '@/components/Cards';
-import { listings } from '@/lib/dum_data';
 import { LucideArrowLeftCircle, PhoneCallIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {  
@@ -10,7 +9,7 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import { use, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useEventsStore } from '@/stores/postsStore';
 
 const ImageGridWithViewer = ({ images }: { images: string[] }) => {
