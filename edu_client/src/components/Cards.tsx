@@ -86,17 +86,17 @@ export const ActionButtons: React.FC<{event: any, isComment: boolean} > = ({even
   <div className="flex items-center justify-between border-t border-gray-50 mt-2 dark:border-gray-900">
     <div className="flex items-center space-x-1">
      
-       {!isComment && <button
+       <button
         onClick={handleShare}
         className="flex items-center space-x-1 px-3 py-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
       >
         <BiUpvote className="w-4 h-4" />
-      </button>}
-
+      </button>
+        {!isComment && 
        <button onClick={() => setAddComment(!addComment)} className="flex items-center space-x-1 px-3 py-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
         <MessageCircle className="w-4 h-4" />
         <span className="text-sm font-medium">{event.comments_count || 0}</span>
-      </button>
+      </button>}
 
     </div>
 
@@ -170,11 +170,11 @@ export const EventCard = ({item, loc='events'}: {item: any, loc: string}) => {
             <MoreHorizontal className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>
         </div>
-        {item.image && (
-            <div className="relative h-40 pl-10 pr-4">
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+        {item.images?.length > 0 && (
+            <div className="pl-1 pr-1">
+                <TiledImages images={item.images} height="h-40" />
             </div>
-        )}
+            )}
             <Link to={`/events/${item.id}`} className=" cursor-pointer">
             <div className='p-4 pt-3 pl-10 pr-4'>
                 <h3 className="font-semibold text-gray-900 dark:text-slate-200 mb-3 line-clamp-1">{item.title}</h3>

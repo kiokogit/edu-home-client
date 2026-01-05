@@ -1,7 +1,7 @@
 import { ActionButtons } from '@/components/Cards';
 import { listings } from '@/lib/dum_data';
 import { LucideArrowLeftCircle, PhoneCallIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {  
   MapPin, 
   Clock,
@@ -10,7 +10,8 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { use, useEffect, useRef, useState } from "react"
+import { useEventsStore } from '@/stores/postsStore';
 
 const ImageGridWithViewer = ({ images }: { images: string[] }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -130,8 +131,23 @@ const ImageGridWithViewer = ({ images }: { images: string[] }) => {
 
 function SingleSouqPage() {
     const navigate = useNavigate();
-    const item = listings.filter((item) => item.id === window.location.pathname.split('/').pop())[0];
+    const { id } = useParams();
     const [showContact, setShowContact] = useState(false);
+    const { selectedEvent, fetchEventDetails } = useEventsStore();
+
+    useEffect(() => {
+        fetchEventDetails(id as string);
+    }, [])
+
+    const item = selectedEvent;
+
+
+    if (!item || item.post_type !== 'ad') {
+        return <div className="min-h-screen flex items-center justify-center">
+            <p className="text-gray-500 dark:text-gray-400">Loading listing details...</p>
+        </div>
+    }
+
 
     return (
         <div className="min-h-screen my-4 mb-8 mx-4">
@@ -172,13 +188,13 @@ function SingleSouqPage() {
             <MoreHorizontal className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>
         </div>
-        <ImageGridWithViewer images={item.images} />
+        <ImageGridWithViewer images={item.images || []} />
 
             <div className='p-2 pt-3'>
                 <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-gray-900 dark:text-slate-200 mb-3 line-clamp-1">{item.title}</h3>
                 {/* price */}
-                <p className="text-sm text-gray-700 dark:text-slate-100 mb-3 font-bold">KES {item.price}</p>
+                <p className="text-sm text-gray-700 dark:text-slate-100 mb-3 font-bold">KES {String(item.price) || 0}</p>
                 </div>
 
                 <p className={`text-sm text-gray-700 dark:text-slate-100 mb-3`}>{item.description}</p>
@@ -189,7 +205,7 @@ function SingleSouqPage() {
                 <span className="line-clamp-1">{item.location}</span>
                 </div>
                 <button onClick={() => setShowContact(!showContact)} className="flex text-xs gap-2 items-center space-x-1 px-2 py-1 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
-                        <PhoneCallIcon className="w-3 h-3" /> {showContact? item.contact : 'Show Contact'}
+                        <PhoneCallIcon className="w-3 h-3" /> {showContact? String(item.contact) : 'Show Contact'}
                     </button>
 
                 </div>
@@ -198,11 +214,11 @@ function SingleSouqPage() {
         <ActionButtons event={item} isComment={false} />
 
         {/* Reviews Section */}
-        {item?.reviews && item?.reviews?.length > 0 && (
+        {item?.comments && item?.comments?.length > 0 && (
             <div className="mt-4 pl-4">
             <h4 className="text-xs text-gray-400 font-semibold underline">Reviews</h4>
             <ul className="space-y-2 ml-4 border-l-2 border-gray-400 dark:border-gray-700">
-                {item?.reviews.map((review) => (
+                {item?.comments.map((review) => (
                  <div key={review.id} className=" overflow-hidden shadow-sm hover:shadow-md transition ">
              <div className="flex items-center justify-between p-2">
           <div className="flex items-center space-x-3">
@@ -233,11 +249,7 @@ function SingleSouqPage() {
             <MoreHorizontal className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>
         </div>
-        {review?.image && (
-            <div className="relative h-24">
-                <img src={review?.image} alt={review?.id} className="w-full h-full object-cover" />
-            </div>
-        )}
+        <ImageGridWithViewer images={review.images || []} />
             <div className='p-2'>
                 <p className={`text-sm text-gray-700 dark:text-slate-100 mb-3`}>{review?.description}</p>
             </div>

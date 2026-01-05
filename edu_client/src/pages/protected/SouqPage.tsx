@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ListingCard } from "@/components/Cards"
 import { listings } from "@/lib/dum_data"
 import { ChevronDown } from "lucide-react"
+import { useEventsStore } from "@/stores/postsStore"
 
 type SortOption =
   | "newest"
@@ -11,10 +12,17 @@ type SortOption =
   | "upvotes"
 
 export default function SouqPage() {
+
+  const { ads, fetchAds } = useEventsStore();
+
   const [sortBy, setSortBy] = useState<SortOption>("newest")
 
+  useEffect(() => {
+    fetchAds();
+  }, []);
+
   const sortedListings = useMemo(() => {
-    const data = [...listings]
+    const data = ads
 
     switch (sortBy) {
       case "newest":

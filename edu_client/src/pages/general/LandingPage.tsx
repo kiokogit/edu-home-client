@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useInView, Variants } from 'framer-motion';
-import Modal from '../../components/Modal';
 import { 
   ArrowRight, Users, MapPin, Calendar, Newspaper, MessageSquare, ChevronRight, Star, LucideIcon
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import AuthPage from './authentication';
+import AuthPage from './Authentication';
 
 interface Community {
   id: string;
@@ -65,13 +64,13 @@ const features: Feature[] = [
     icon: Calendar
   },
   {
-    title: 'Group Chats',
-    description: 'Connect with community members through seamless messaging.',
+    title: 'Local Ads and listings',
+    description: 'Access nearest offers, deals, and classifieds from your community.',
     icon: MessageSquare
   },
   {
-    title: 'News Feed',
-    description: 'Get the latest updates from your community in one place.',
+    title: 'Local Guide',
+    description: 'Get a guide through local area.',
     icon: Newspaper
   }
 ];
@@ -90,7 +89,7 @@ const testimonials: Testimonial[] = [
     role: 'University Student',
     text: 'Uniquad transformed how I connect with my campus community. The events feed is a game-changer!',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100',
-    community: 'Boston University'
+    community: 'JKUAT'
   },
   {
     name: 'Maria G.',
@@ -150,16 +149,15 @@ const FadeInOnScroll: React.FC<FadeInOnScrollProps> = ({ children, delay = 0, cl
 };
 
 function LandingPage() {
-  const [showContactModal, setShowContactModal] = useState(false);
   const navigate = useNavigate();
 
   const isLoggedIn = false; // --- IGNORE ---
   const startLogin = (source: string) => {
-    navigate('/login?source=' + source);
+    navigate('/auth?mode=' + 'login' + '&source=' + source);
   };
 
   const startRegister = (source: string) => {
-    navigate('/register?source=' + source);
+    navigate('/auth?mode=register&source=' + source);
   };
 
   return (
@@ -398,16 +396,6 @@ function LandingPage() {
           
         </div>
         
-        {/* Scroll indicator */}
-        {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
-          <div className="animate-bounce w-8 h-12 border-2 border-gray-300 dark:border-gray-600 rounded-full flex justify-center items-start p-1">
-            <div className="w-1 h-3 bg-gray-400 dark:bg-gray-500 rounded-full" />
-          </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
-            <p className="text-xs">Scroll to explore</p>
-            <ChevronDown size={14} />
-          </div>
-        </div> */}
       </header>
 
       {/* Features Section */}
@@ -744,7 +732,7 @@ function LandingPage() {
                   Create free account
                 </button>
                 <button
-                  onClick={() => setShowContactModal(true)}
+                  onClick={() => console.log('Contact us clicked')}
                   className="px-10 py-4 rounded-full border-2 border-white/30 hover:bg-white/10 font-bold text-lg transition-all"
                 >
                   Contact us
@@ -755,16 +743,6 @@ function LandingPage() {
         </section>
         <Footer />
 
-      {/* Modals */}
-      <Modal show={showContactModal} onClose={() => setShowContactModal(false)} title="Get in Touch">
-        <div className="space-y-4">
-          <input type="text" placeholder="Name" className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500 transition" />
-          <input type="email" placeholder="Email" className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500 transition" />
-          <textarea rows={4} placeholder="How can we help?" className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-orange-500 transition" />
-          <button className="w-full py-3 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 transition">Send Message</button>
-        </div>
-      </Modal>
-
     </div>
   )
 }
@@ -774,8 +752,7 @@ export default function NoAuthRouting(){
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<AuthPage is_login={true} />} />
-      <Route path="/register" element={<AuthPage is_login={false} />} />
+      <Route path="/auth" element={<AuthPage />} />
     </Routes>
   )
 

@@ -14,16 +14,14 @@ import {
   GlobeLock,
 } from 'lucide-react'
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useUserInfo } from "@/hooks/useUserInfo";
 import { supabase } from "@/supabase_client";
+import { useAuth } from "@/Providers";
 
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const pathname = window.location.pathname;
-  const session = {
-    user: useUserInfo().user
-  }
+  const { user } = useAuth()
   const navigate = useNavigate();
 
 
@@ -65,14 +63,14 @@ export default function Header() {
 
   return (
     <header className="fixed z-30 w-full ">
-      <div className="mx-auto max-w-xl">
+      <div className="mx-auto max-w-xl border-l border-r ">
           <div className="flex flex-col pt-2 bg-white/90 dark:bg-gray-900/90 px-4 shadow-black/[0.03] backdrop-blur-xs before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-gray-100),var(--color-gray-200))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] dark:before:[background:linear-gradient(var(--color-gray-800),var(--color-gray-700))_border-box]">
           <div className=" flex h-fit pb-2 items-center justify-between">
             
           <div className=" text-gray-700 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-400" >
             <NavLink to={'/'} className="flex items-center ml-[-10px] gap-2 cursor-pointer hover:bg-transparent rounded-lg transition-colors scale-100 ">
               <Logo />
-              <div className="font-semibold">UniQuad {(session as any)?.backendUser?.campus?.initials}</div>
+              <div className="font-semibold">UniQuad {user?.user_metadata?.campus?.initials}</div>
             </NavLink>
           </div>
           <div>
@@ -95,21 +93,21 @@ export default function Header() {
               </div>
 
               <div className="relative"  onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                    {session.user?.avatar ? (
+                    {user?.user_metadata?.avatar_url ? (
                       <img
-                        src={session?.user.avatar}
+                        src={user?.user_metadata?.avatar_url}
                         alt="avatar"
                         className="w-8 h-8 rounded-full border-2 border-orange-200 dark:border-green-900"
                       />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-orange-500 flex items-center justify-center text-white font-semibold">
-                        {session.user?.fullName.charAt(0).toUpperCase()}
+                        {user?.user_metadata?.full_name.charAt(0).toUpperCase()}
                       </div>
                     )}
                    
                   </div>
 
-            {isDropdownOpen && session && (
+            {isDropdownOpen && user && (
               <div className="absolute top-full right-[-16px] w-48 bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                   <div className="absolute top-[-4px] right-10 w-2 h-2 bg-white dark:bg-gray-900 border-l border-t border-gray-200 dark:border-gray-700 rotate-45"></div>
                 {/* Menu Items */}

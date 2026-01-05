@@ -1,39 +1,40 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from './supabase_client'
 import { Session, User } from '@supabase/supabase-js'
+import { loaderStore } from './stores/genericStores';
 
-const AuthContext = createContext<{ user: User | null; session: Session | null; loading: boolean }>({
+const AuthContext = createContext<{ user: User | null; session: Session | null; }>({
   user: null,
-  session: null,
-  loading: true,
+  session: null
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
   const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
+  loaderStore.show("Checking authentication...")
+
 
   useEffect(() => {
     // Check initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setUser(session?.user ?? null)
-      setLoading(false)
+      loaderStore.hide()
     })
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
-      setLoading(false)
+      loaderStore.hide()
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, session, loading }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, session }}>
+      {children}
     </AuthContext.Provider>
   )
 }

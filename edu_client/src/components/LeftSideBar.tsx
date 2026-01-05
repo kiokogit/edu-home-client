@@ -2,7 +2,7 @@ import Footer from "@/components/Footer"
 import { useAuth } from "@/Providers";
 import { Home, User, Settings, Bell, HelpCircle, LogOut } from "lucide-react"
 import { supabase } from "@/supabase_client";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function LeftSideBar() {
@@ -31,20 +31,20 @@ export default function LeftSideBar() {
           >
           <div className="px-4 border-gray-100 dark:border-gray-700">
                 <div className="flex items-center gap-3">
-                  {user?.role ? (
+                  {user?.user_metadata?.avatar_url ? (
                     <img
-                      src={user?.role}
+                      src={user?.user_metadata?.avatar_url}
                       alt="avatar"
                       className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-700"
                     />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-orange-500 flex items-center justify-center text-white font-semibold">
-                      {user?.user_metadata.full_name.charAt(0).toUpperCase()}
+                      {user?.user_metadata?.full_name.charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
-                      {user?.user_metadata.full_name || "User"}
+                      {user?.user_metadata?.full_name || "User"}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                       {user?.email || "user@example.com"}
@@ -59,9 +59,9 @@ export default function LeftSideBar() {
             item.type === "divider" ? (
               <hr key={idx} className="my-2 border-gray-200 dark:border-gray-700" />
             ) : (
-              <a
+              <Link
                 key={idx}
-                href={item.href}
+                to={item.href}
                 onClick={item.action}
                 className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 ${item.className || ""}`}
               >
@@ -72,7 +72,7 @@ export default function LeftSideBar() {
                   })()
                 ) : null}
                 {item.label}
-              </a>
+              </Link>
             )
           )}
         </nav>

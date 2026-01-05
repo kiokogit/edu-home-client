@@ -1,25 +1,38 @@
 import { create } from "zustand"
 import axiosInstance from "@/lib/api-client"
-import { createPostEndpoint, getAllEventsPostsEndpoint, getPostDetailsEndpoint } from "@/lib/endpoints"
+import { createPostEndpoint, getAllPosts, getPostDetailsEndpoint } from "@/lib/endpoints"
 
 
 export const useEventsStore = create<EventsState>((set, get) => ({
   events: [],
+  ads: [],
   loading: false,
   error: undefined,
   selectedEvent: null,
 
-  // ✅ Fetch events (auto-refresh support)
-  fetchEvents: async () => {
+  fetchAds: async () => {
     try {
-      const res = await axiosInstance.get(getAllEventsPostsEndpoint)
-      set({ events: res.data })
+      const res = await axiosInstance.get(getAllPosts + '?post_type=ad')
+      set({ ads: res.data?.items })
     } catch (err: any) {
       set({ error: err.message })
     } finally {
     }
   },
-  fetchEventDetails: async (id) => {
+
+  // ✅ Fetch events (auto-refresh support)
+  fetchEvents: async () => {
+    try {
+      const res = await axiosInstance.get(getAllPosts + '?post_type=event')
+      set({ events: res.data?.items })
+    } catch (err: any) {
+      set({ error: err.message })
+    } finally {
+    }
+  },
+  fetchEventDetails: async (id: string) => {
+    if (!id) return;
+    if (get().selectedEvent?.id === id) return;
     try {
       const res = await axiosInstance.get(getPostDetailsEndpoint + id)
       set({selectedEvent: res.data})
@@ -31,8 +44,8 @@ export const useEventsStore = create<EventsState>((set, get) => ({
   addEvent: async (newEvent) => {
     try {
       await axiosInstance.post(createPostEndpoint, newEvent)
-      if (newEvent.conversation_id && get().selectedEvent){
-        await get().fetchEventDetails(get().selectedEvent.id)
+      if (newEvent.parent_post_id && get().selectedEvent){
+        await get().fetchEventDetails(get().selectedEvent?.id || '')
       } else {
         await get().fetchEvents()
       }

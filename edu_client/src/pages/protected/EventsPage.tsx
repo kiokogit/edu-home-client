@@ -1,7 +1,7 @@
 import { EventCard } from '@/components/Cards';
-import { events } from '@/lib/dum_data';
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { useEventsStore } from '@/stores/postsStore';
 
 type SortOption =
   | "newest"
@@ -10,6 +10,13 @@ type SortOption =
 
 export default function CampusEvents() {
     const [sortBy, setSortBy] = useState<SortOption>("newest")
+
+    const {events, fetchEvents} = useEventsStore();
+  
+    useEffect(() => {
+      fetchEvents();
+    }, []);
+  
 
   const sortedEvents = useMemo(() => {
     const data = [...events]
@@ -33,6 +40,8 @@ export default function CampusEvents() {
         return data
     }
   }, [sortBy])
+
+  
 
   return (
     <div className="min-h-screen my-1 mb-8">

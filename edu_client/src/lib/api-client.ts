@@ -1,11 +1,12 @@
 import axios from "axios"
 import { loaderStore } from "@/stores/genericStores"
-import { getFusionAuthToken, clearFusionAuthData } from "./fusionauth-utils"
+import { supabase } from "@/supabase_client"
+import { API_BASE_URL } from "./settings"
+
 
 const axiosInstance = axios.create({
   baseURL:
-    `${import.meta.env.VITE_DJANGO_API_URL || "http://localhost:8000"}` +
-    `/${import.meta.env.VITE_API_VERSION || "api/v1"}`,
+    `${API_BASE_URL || "http://localhost:8001"}`,
   headers: { "Content-Type": "application/json" },
 })
 
@@ -17,8 +18,8 @@ axiosInstance.interceptors.request.use(async (config) => {
   if (activeRequests === 0) loaderStore.show("Please wait...")
   activeRequests++
 
-  // Get FusionAuth access token
-  const accessToken = getFusionAuthToken()
+  // Get access token
+  const accessToken = (await supabase.auth.getSession())?.data?.session?.access_token
   
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`
@@ -38,8 +39,8 @@ axiosInstance.interceptors.response.use(
     if (activeRequests === 0) loaderStore.hide()
 
     if (error.response?.status === 401 || error.response?.status === 403) {
-      // Clear FusionAuth data and redirect to login
-      clearFusionAuthData()
+      // Clear data and redirect to login
+      await supabase.auth.signOut()
       window.location.href = '/'
     }
 

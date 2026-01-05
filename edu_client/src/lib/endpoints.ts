@@ -1,6 +1,8 @@
 
-export const getAllEventsPostsEndpoint = '/api/posts/events';
-export const getPostDetailsEndpoint = '/api/posts/';
-export const createPostEndpoint = '/api/posts/';
+export const getAllPosts = '/posts/fetch';
+export const getPostDetailsEndpoint = '/posts/fetch/';
+export const createPostEndpoint = '/posts/';
+
+export const getUserProfileEndpoint = '/profile';
 
 
