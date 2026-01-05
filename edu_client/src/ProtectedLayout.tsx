@@ -12,13 +12,10 @@ export default function ProtectedLayout() {
 
 return (
   <div className="min-h-screen flex flex-col ">
-    {/* Top navbar */}
     <Navbar />
 
-    {/* Page grid */}
     <div className="flex-1 w-full max-w-7xl mx-auto px-0 py-8 grid grid-cols-1 md:grid-cols-12 gap-2">
 
-      {/* Left Sidebar */}
       <LeftSideBar />
 
       <main className="md:col-span-6 max-w-xl w-full mx-auto pt-2 md:pt-3 border-l border-r border-gray-400 dark:border-gray-700">
@@ -33,7 +30,6 @@ return (
 
       </main>
 
-      {/* Right Sidebar */}
       <aside className="hidden md:col-span-3 md:flex flex-col mt-[-12px] sticky top-0 h-[calc(100vh-3.5rem)] overflow-y-auto overflow-x-hidden scrollbar-hide"
       >
         <div className="flex-1 space-y-6">
