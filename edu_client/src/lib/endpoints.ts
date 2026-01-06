@@ -4,5 +4,6 @@ export const getPostDetailsEndpoint = '/posts/fetch/';
 export const createPostEndpoint = '/posts/';
 
 export const getUserProfileEndpoint = '/profile';
+export const postActionsEndpoint = '/posts/actions/';
 
 

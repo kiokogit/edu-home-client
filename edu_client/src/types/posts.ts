@@ -19,6 +19,8 @@ interface Post {
     time?: string;
     comments?: Post[];
     contact?: string;
+    likes?: number;
+    attendees?: number;
 }
 
 interface EventsState {

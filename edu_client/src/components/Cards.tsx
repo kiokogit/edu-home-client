@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import { BiUpvote } from 'react-icons/bi';
 import moment from 'moment';
+import axiosInstance from '@/lib/api-client';
+import { postActionsEndpoint } from '@/lib/endpoints';
+import { useEventsStore } from '@/stores/postsStore';
 
 const MAX_VISIBLE = 2
 
@@ -69,32 +72,45 @@ export const TiledImages = ({
 }
 
 
-      
-export const ActionButtons: React.FC<{event: any, isComment: boolean} > = ({event, isComment}) => {
+export const ActionButtons: React.FC<{event: Post, isComment: boolean, callback: (id: string) => void}> = ({event, isComment, callback}) => {
     const [addComment, setAddComment] = useState(false)
 
-  const handleAttend = (e: React.MouseEvent) => {
+  const handleAttend = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    await axiosInstance.post(postActionsEndpoint + String(event.id) + '/attend')
+    .then(() => {
+      callback(!isComment ? event.id: event.parent_post_id as string);
+    })
   };
 
 
   const handleShare = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
+
+  const handleUpvote = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await axiosInstance.post(postActionsEndpoint + String(event.id) + '/like')
+    .then(() => {
+      callback(!isComment ? event.id: event.parent_post_id as string);
+    })
+  }
+  
   return (
   <div className="flex items-center justify-between border-t border-gray-50 mt-2 dark:border-gray-900">
     <div className="flex items-center space-x-1">
      
        <button
-        onClick={handleShare}
+        onClick={handleUpvote}
         className="flex items-center space-x-1 px-3 py-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
       >
         <BiUpvote className="w-4 h-4" />
+        <span className="text-sm font-medium">{event.likes || 0}</span>
       </button>
         {!isComment && 
        <button onClick={() => setAddComment(!addComment)} className="flex items-center space-x-1 px-3 py-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
         <MessageCircle className="w-4 h-4" />
-        <span className="text-sm font-medium">{event.comments_count || 0}</span>
+        <span className="text-sm font-medium">{event?.comments?.length || 0}</span>
       </button>}
 
     </div>
@@ -192,7 +208,7 @@ export const EventCard = ({item, loc='events'}: {item: any, loc: string}) => {
                 
             </Link>
                 {loc !== 'home' && 
-            <ActionButtons event={item} isComment={false} />
+            <ActionButtons event={item} isComment={false} callback={(id) => console.log(id)} />
             }
             <hr className="my-2 mt-4 border-gray-200 dark:border-gray-700" />
         </div>

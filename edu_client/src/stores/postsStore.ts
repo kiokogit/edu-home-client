@@ -32,7 +32,7 @@ export const useEventsStore = create<EventsState>((set, get) => ({
   },
   fetchEventDetails: async (id: string) => {
     if (!id) return;
-    if (get().selectedEvent?.id === id) return;
+    // if (get().selectedEvent?.id === id) return;
     try {
       const res = await axiosInstance.get(getPostDetailsEndpoint + id)
       set({selectedEvent: res.data})

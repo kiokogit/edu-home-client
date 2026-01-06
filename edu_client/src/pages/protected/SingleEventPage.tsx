@@ -113,7 +113,7 @@ function SingleEventPage() {
                 </div>
             </div>
         </div>
-        <ActionButtons event={selectedEvent} isComment={false} />
+        <ActionButtons event={selectedEvent} isComment={false} callback={fetchEventDetails} />
 
         {/* Comments Section */}
         {selectedEvent?.comments && selectedEvent?.comments?.length > 0 && (
@@ -163,7 +163,7 @@ function SingleEventPage() {
                     {comment?.description}
                 </p>
             </div>
-            <ActionButtons event={comment} isComment={true} />
+            <ActionButtons event={comment} isComment={true} callback={fetchEventDetails} />
 
         </div>
                 ))}

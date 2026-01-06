@@ -18,7 +18,7 @@ export default function Loader() {
     } else {
       // Finish the progress bar
       setProgress(100)
-      const timeout = setTimeout(() => setProgress(0), 300)
+      const timeout = setTimeout(() => setProgress(0), 10)
       return () => clearTimeout(timeout)
     }
 
